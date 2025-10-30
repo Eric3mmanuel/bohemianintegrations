@@ -1,0 +1,317 @@
+CART SECTION HTML/CSS/JS
+
+HTML
+
+1.Just before the </head> tag add
+<!--✅ Cart Icon Animation Styles TO WIGGLE WHEN CUSTOMER ADDS TO CART -->
+    <style>
+        /* ✅ Gentle wiggle and glow animation for cart icon */
+        @keyframes cartWiggle {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                filter: drop-shadow(0 0 0px #00ff80);
+            }
+
+            25% {
+                transform: scale(1.2) rotate(-5deg);
+                filter: drop-shadow(0 0 8px #00ff80);
+            }
+
+            50% {
+                transform: scale(1.1) rotate(5deg);
+            }
+
+            75% {
+                transform: scale(1.2) rotate(-5deg);
+            }
+        }
+
+        .cart-animate {
+            animation: cartWiggle 0.8s ease-in-out;
+        }
+    </style>
+
+
+2.to update cart count number icon when customer adds item to cart ,add "cart-count" to class.
+Add this to all cart icons in your website.
+
+<a href="cart.html" class="position-relative me-4 my-auto">
+                <i class="fa fa-shopping-bag fa-2x"></i>
+                <span
+                    class="cart-count position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                    style="top: -5px; left: 15px; height: 20px; min-width: 20px;">0</span>
+            </a> 
+
+
+3.between <!--products end--> and <!--footer end --> add this to center your "Added to cart" section 
+
+ <!-- 🌿 Centered Add-to-Cart Toast -->
+    <div id="cart-toast" class="cart-toast">
+        <div class="cart-toast-content">
+            <button class="close-toast">&times;</button>
+            <h5>✨ Added to your cart!</h5>
+            <div class="cart-toast-body">
+                <img id="toast-image" src="" alt="Product" />
+                <div>
+                    <p id="toast-name" class="toast-name"></p>
+                    <p id="toast-price" class="toast-price"></p>
+                    <p id="toast-qty" class="toast-qty"></p>
+                </div>
+            </div>
+            <div class="cart-toast-footer">
+                <button id="toast-view-cart" class="toast-btn">View Cart</button>
+                <button id="toast-continue" class="toast-btn-outline">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+    <!-- 🌿 Centered Add-to-Cart Toast End -->
+
+
+4. delete the last script and add this
+
+<script>
+
+        // ✅ Universal cart count + animation function (works on any page)
+        function updateCartCount() {
+            const counts = document.querySelectorAll('.cart-count');
+            const cartIcons = document.querySelectorAll('.fa-shopping-bag');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            // Update the count text
+            counts.forEach(c => c.textContent = totalItems);
+
+            // Animate the icons for feedback
+            cartIcons.forEach(icon => {
+                icon.classList.add('cart-animate');
+                setTimeout(() => icon.classList.remove('cart-animate'), 800);
+            });
+        }
+
+        // 🌼 Center Toast product added to cart Popup Logic
+        function showCartToast(product) {
+            const toast = document.getElementById('cart-toast');
+            const toastImg = document.getElementById('toast-image');
+            const toastName = document.getElementById('toast-name');
+            const toastPrice = document.getElementById('toast-price');
+            const toastQty = document.getElementById('toast-qty');
+
+            // Fill details
+            toastImg.src = product.image;
+            toastName.textContent = product.name;
+            toastPrice.textContent = `KES ${product.price}`;
+            toastQty.textContent = `Qty: ${product.quantity}`;
+
+            // Show toast
+            toast.classList.add('show');
+
+            // Hide after 4 seconds
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        // ✨ Close manually or via buttons
+        document.addEventListener('click', (e) => {
+            if (
+                e.target.classList.contains('close-toast') ||
+                e.target.id === 'toast-continue'
+            ) {
+                document.getElementById('cart-toast').classList.remove('show');
+            }
+        });
+
+        document.getElementById('toast-view-cart').addEventListener('click', () => {
+            window.location.href = 'cart.html';
+        });
+
+
+
+        // Run when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart'); // Buttons you’ll mark
+
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();   // prevent page scroll or reload
+                    event.stopPropagation();  // just in case parent elements react
+
+
+                    const productCard = event.target.closest('.product-item');
+                    const qtyInput = productCard.querySelector('.product-qty');
+                    const qty = parseInt(qtyInput?.value || "1");
+
+                    const product = {
+                        name: productCard.querySelector('.product-name').textContent,
+                        price: parseFloat(productCard.querySelector('.product-price').textContent.replace(/[^\d.]/g, '')),
+                        image: productCard.querySelector('img').getAttribute('src'),
+                        quantity: qty
+                    };
+
+
+                    // Get current cart items or create empty array
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                    // Check if product already exists
+                    const existing = cart.find(item => item.name === product.name);
+                    if (existing) {
+                        existing.quantity += 1;
+                    } else {
+                        cart.push(product);
+                    }
+
+                    localStorage.setItem('cart', JSON.stringify(cart));
+
+                    // --- pretty animated popup ---
+                    /*const msg = document.createElement('div');
+                    msg.textContent = `${product.name} added to cart!`;
+                    msg.classList.add('added-to-cart-popup');
+                    document.body.appendChild(msg);
+                    setTimeout(() => msg.remove(), 1500);*/
+
+                    showCartToast(product);
+
+
+
+                    // ✅ update cart icon immediately after adding
+                    updateCartCount();
+
+
+
+                });
+            });
+
+            // ✅ Load the correct count from localStorage when page first loads
+            updateCartCount();
+        });
+    </script>
+
+5.in styles.css add 
+
+/* 🌿 Centered Floaty Toast Popup */
+.cart-toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%) scale(0.95);
+  background: rgba(245, 222, 179, 0.96); /* burlywood tone */
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+  padding: 20px 24px;
+  width: 340px;
+  max-width: 90%;
+  opacity: 0;
+  z-index: 9999;
+  backdrop-filter: blur(6px);
+  text-align: center;
+  transition: all 0.5s ease;
+  pointer-events: none;
+}
+
+.cart-toast.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
+}
+
+.cart-toast-content {
+  position: relative;
+  color: #2e5d39;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.cart-toast-content h5 {
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #2e5d39;
+}
+
+.close-toast {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: #2e5d39;
+  cursor: pointer;
+}
+
+.cart-toast-body {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.cart-toast-body img {
+  width: 70px;
+  height: 70px;
+  border-radius: 12px;
+  border: 2px solid #2e5d39;
+  object-fit: cover;
+}
+
+.toast-name {
+  font-weight: 600;
+  color: #2e5d39;
+}
+
+.toast-price {
+  color: #5e3c1e;
+  font-size: 14px;
+}
+
+.toast-qty {
+  color: #444;
+  font-size: 13px;
+}
+
+.cart-toast-footer {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.toast-btn,
+.toast-btn-outline {
+  flex: 1;
+  border-radius: 10px;
+  padding: 8px 0;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.toast-btn {
+  background: #2e5d39;
+  color: white;
+  border: none;
+}
+
+.toast-btn:hover {
+  background: #3d7648;
+}
+
+.toast-btn-outline {
+  background: transparent;
+  border: 2px solid #2e5d39;
+  color: #2e5d39;
+}
+
+.toast-btn-outline:hover {
+  background: #2e5d39;
+  color: white;
+}
+
+/* 💨 Subtle float animation */
+@keyframes softPop {
+  0% { transform: translate(-50%, -55%) scale(0.95); opacity: 0; }
+  40% { transform: translate(-50%, -50%) scale(1.03); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+.cart-toast.show {
+  animation: softPop 0.6s ease forwards;
+}

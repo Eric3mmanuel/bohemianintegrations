@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bohemian Integrations</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Bohemian Integrations</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar & Hero Start -->
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="" class="navbar-brand p-0">
+                <h1 style="color: green;"><img src="img/Bohemian Integrations logo.jpg" alt="Logo"
+                        style="width: 70px;height: 70px;border-radius: 50px;">Bohemian Integrations</h1>
+
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About</a>
+                    <a href="service.html" class="nav-item nav-link">Services</a>
+
+                    <div class="nav-item dropdown">
+                        <a href="product.html" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Products</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="product.html" class="dropdown-item">All Products</a>
+                            <a href="MeditationandWellnessCandles.html" class="dropdown-item">🕯️Meditation and Wellness
+                                Candles</a>
+                            <a href="HerbalandAromaticProducts.html" class="dropdown-item">🌿Herbal and Aromatic
+                                Products</a>
+                            <a href="HealingCrystalsandGemstones.html" class="dropdown-item">💎Healing Crystals and
+                                Gemstones(Jewelry)</a>
+                            <a href="SacredSpaceDecor.html" class="dropdown-item">🌻Sacred Space Decor</a>
+                            <a href="MindfulApparel.html" class="dropdown-item">👕Mindful Apparel and Clothing</a>
+                        </div>
+                    </div>
+                    <a href="cart.html" class="nav-item nav-link">Cart</a>
+                    <a href="Checkout.html" class="nav-item nav-link">Checkout</a>
+                    <a href="blog.html" class="nav-item nav-link">Blog</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                <div class="d-none d-xl-flex me-3">
+                    <div class="d-flex flex-column pe-3 border-end border-primary">
+                        <span class="text-body">Get Free Delivery</span>
+                        <a href="tel:+4733378901"><span class="text-primary">Free: + 0123 456 7890</span></a>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+        <!-- Header Start -->
+        <div class="container-fluid bg-breadcrumb">
+            <div class="container text-center py-5" style="max-width: 900px;">
+                <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">🌿 Herbal & Aromatic Products</h4>
+
+            </div>
+        </div>
+        <!-- Header End -->
+    </div>
+    <!-- Navbar & Hero End -->
+
+    <!-- Modal Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h4 class="modal-title mb-0" id="exampleModalLabel">Search by keyword</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center">
+                    <div class="input-group w-75 mx-auto d-flex">
+                        <input type="search" class="form-control p-3" placeholder="keywords"
+                            aria-describedby="search-icon-1">
+                        <span id="search-icon-1" class="input-group-text btn border p-3"><i
+                                class="fa fa-search text-white"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Search End -->
+
+    <!-- Products Start -->
+    <div class="container-fluid product py-5">
+        <div class="container py-5">
+            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                <h4 class="text-uppercase text-primary">🌿 Herbal & Aromatic Products</h4>
+                <h1 class="display-3 text-capitalize mb-3">Bohemian Integrations</h1>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="product-item">
+                        <img src="img\Herbal and Aromatic Products Pics\Herbal Teas and Infusions\herbal tea.jpg" class="img-fluid w-100 rounded-top" alt="Image"
+                            style="width: 600px;height: 340px;">
+                        <div class="product-content bg-light text-center rounded-bottom p-4">
+
+                            <a href="HerbalTeasandInfusions.html" class="h4 d-inline-block mb-3">🧘‍♀️ Herbal Teas &
+                                Infusions</a>
+                            <p>
+                                Sip serenity with every cup.<br>
+                                Our herbal teas are handcrafted to support balance, healing, and peaceful moments of
+                                reflection.
+                            </p>
+                            <a href="HerbalTeasandInfusions.html"
+                                class="btn btn-secondary rounded-pill py-2 px-4">Explore and Purchase</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="product-item">
+                        <img src="img\Herbal and Aromatic Products Pics\Herbs And Spices\Herbs and Spices.jpg" class="img-fluid w-100 rounded-top" alt="Image"
+                            style="width: 600px;height: 340px;">
+                        <div class="product-content bg-light text-center rounded-bottom p-4">
+
+                            <a href="HerbsandSpices.html" class="h4 d-inline-block mb-3">🌿 Herbs & Spices</a>
+                            <p>Nourish body and home with our thoughtfully sourced herbs and spice blends. <br>
+                                Each jar is chosen for flavor, purity, and gentle healing qualities — perfect for cooking, tea or baking.</p>
+                            <a href="HerbsandSpices.html" class="btn btn-secondary rounded-pill py-2 px-4">Explore
+                                and Purchase</a>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="product-item">
+                        <img src="img\Herbal and Aromatic Products Pics\Herbal Bath and Body Blends\Bath salt with soap.jpg" class="img-fluid w-100 rounded-top"
+                            alt="Image" style="width: 600px;height: 340px;">
+                        <div class="product-content bg-light text-center rounded-bottom p-4">
+
+                            <a href="HerbalBathandBodyBlends.html" class="h4 d-inline-block mb-3">🛀🏼Herbal Bath & Body
+                                Blends</a>
+                            <p>Turn your self-care into ceremony.<br>
+                                Our herbal blends nurture your skin and soul — reconnecting you with your body’s natural
+                                rhythm.</p>
+                            <a href="HerbalBathandBodyBlends.html" class="btn btn-secondary rounded-pill py-2 px-4">Explore and
+                                Purchase</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="product-item">
+                        <img src="img\Herbal and Aromatic Products Pics\Aromatherapy Oils\Natural Fragrance.png" class="img-fluid w-100 rounded-top" alt="Image"
+                            style="width: 600px;height: 340px;">
+                        <div class="product-content bg-light text-center rounded-bottom p-4">
+
+                            <a href="AromatherapyOils.html" class="h4 d-inline-block mb-3">🌸 Aromatherapy Oils</a>
+                            <p>Breathe in tranquility and exhale stress.<br>
+                                Our pure essential oils awaken your senses, balance your mood, and reconnect you to the
+                                present moment.</p>
+                            <a href="AromatherapyOils.html" class="btn btn-secondary rounded-pill py-2 px-4">Explore and
+                                Purchase</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="product-item">
+                        <img src="img\Herbal and Aromatic Products Pics\Botanical Perfume oils\Perfume natural.jpg" class="img-fluid w-100 rounded-top" alt="Image"
+                            style="width: 600px;height: 340px;">
+                        <div class="product-content bg-light text-center rounded-bottom p-4">
+
+                            <a href="BotanicalPerfumeOils.html" class="h4 d-inline-block mb-3">🌺 Botanical Perfume
+                                Oils</a>
+                            <p>A whisper of nature on your skin.<br>
+                                Our botanical perfumes are subtle, long-lasting, and deeply personal — made from pure
+                                essential oils that harmonize with your energy.</p>
+                            <a href="BotanicalPerfumeOils.html" class="btn btn-secondary rounded-pill py-2 px-4">Explore
+                                and Purchase</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="product-item">
+                        <img src="img\Herbal and Aromatic Products Pics\Incense and Smudge sticks\Incense 1.jpg" class="img-fluid w-100 rounded-top" alt="Image"
+                            style="width: 600px;height: 340px;">
+                        <div class="product-content bg-light text-center rounded-bottom p-4">
+
+                            <a href="IncenseandSmudgeSticks.html" class="h4 d-inline-block mb-3">🔥Incense & Smudge Sticks</a>
+                            <p></p>Cleanse your space. Awaken your spirit.<br>
+                            Our natural incense and smudge sticks are crafted for meditation and everyday
+                            peace.
+                            <a href="IncenseandSmudgeSticks.html" class="btn btn-secondary rounded-pill py-2 px-4">Explore and
+                                Purchase</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="product-item">
+                        <img src="img\Herbal and Aromatic Products Pics\Dried Herbal Satchets and Potpourri\Herbal pillows.jpeg" class="img-fluid w-100 rounded-top" alt="Image"
+                            style="width: 600px;height: 340px;">
+                        <div class="product-content bg-light text-center rounded-bottom p-4">
+
+                            <a href="img\Herbal and Aromatic Products Pics\Dried Herbal Satchets and Potpourri\Herbal pillows.jpeg" class="h4 d-inline-block mb-3">🌾Dried Herbal Sachets
+                                & Potpourri</a>
+                            <p>Bring the beauty of nature indoors.<br>
+                                Each sachet and potpourri blend adds gentle fragrance and peace to your sacred spaces.
+                            </p>
+                            <a href="DriedHerbalSatchetsandPotpourri.html"
+                                class="btn btn-secondary rounded-pill py-2 px-4">Explore and Purchase</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="product-item">
+                        <img src="img\Herbal and Aromatic Products Pics\Aromatic Diffuser Blends\Romance blend.jpeg" class="img-fluid w-100 rounded-top" alt="Image"
+                            style="width: 600px;height: 340px;">
+                        <div class="product-content bg-light text-center rounded-bottom p-4">
+
+                            <a href="AromaticDiffuserBlends.html" class="h4 d-inline-block mb-3">💨 Aromatic Diffuser
+                                Blends</a>
+                            <p>Create mindful atmospheres that match your mood.<br>
+                                Each diffuser blend is carefully composed to inspire balance and harmony.</p>
+                            <a href="AromaticDiffuserBlends.html" class="btn btn-secondary rounded-pill py-2 px-4">Explore
+                                and Purchase</a>
+                        </div>
+                    </div>
+                </div>
+                
+
+            </div>
+        </div>
+    </div>
+    <!-- Products End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+        <div class="container py-5">
+            <div class="row g-5 mb-5 align-items-center">
+                <!--<div class="col-lg-7">
+                    <div class="position-relative mx-auto">
+                        <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
+                            placeholder="Email address to Subscribe">
+                        <button type="button"
+                            class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 px-4 mt-2 me-2">Subscribe</button>
+                    </div>
+                </div>-->
+                <div class="col-lg-5">
+                    <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                class="fab fa-tiktok"></i></a>
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                class="fab fa-instagram"></i></a>
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-0" href=""><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <div class="footer-item">
+                            <h3 class="text-white mb-4"><img src="img/Bohemian Integrations logo.jpg" alt="Logo"
+                                    style="width: 70px;height: 70px;border-radius: 50px;">Bohemian Integrations
+                            </h3>
+                            <p class="mb-3">Connecting you,with your inner self🧘✨</p>
+                        </div>
+                        <div class="position-relative">
+                            <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
+                                placeholder="Enter your email">
+                            <button type="button"
+                                class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">SignUp</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Bohemian Integrations</h4>
+                        <a href="about.html"><i class="fas fa-angle-right me-2"></i> About us</a>
+                        <a href="service.html"><i class="fas fa-angle-right me-2"></i> Services</a>
+                        <a href="product.html"><i class="fas fa-angle-right me-2"></i> Products</a>
+                        <a href="cart.html"><i class="fas fa-angle-right me-2"></i> Cart</a>
+                        <a href="Checkout.html"><i class="fas fa-angle-right me-2"></i> Checkout</a>
+                        <a href="blog.html"><i class="fas fa-angle-right me-2"></i> Our Blog</a>
+                        <a href="contact.html"><i class="fas fa-angle-right me-2"></i> Contact us</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Business Hours</h4>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Mon - Friday:</h6>
+                            <p class="text-white mb-0">09.00 am to 07.00 pm</p>
+                        </div>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Saturday:</h6>
+                            <p class="text-white mb-0">10.00 am to 05.00 pm</p>
+                        </div>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Vacation:</h6>
+                            <p class="text-white mb-0">All Sunday is our vacation 🍹🌴</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Contact Info</h4>
+                        <a href="#"><i class="fa fa-map-marker-alt me-2"></i> Kileleshwa , Nairobi, Kenya</a>
+                        <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i>
+                            info@bohemianintegrations.com</a>
+                        <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i>
+                            bohemianintegrations@gmail.com</a>
+                        <a href="tel:+012 345 67890"><i class="fas fa-phone me-2"></i> +254 784587728</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Copyright Start -->
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-md-0">
+                    <span class="text-body"><a href="https://bohemianintegrations.shop"
+                            class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>Bohemian
+                            Integrations</a>, All right
+                        reserved.</span>
+                </div>
+                <div class="col-md-6 text-center text-md-end text-body">
+                    <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                    <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                    <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                    Designed By <a class="border-bottom text-white" href="https://3ric3mmanu3l.co.ke">3ric3mmanu3l</a>
+                    <!--Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-secondary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

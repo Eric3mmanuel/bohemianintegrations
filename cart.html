@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bohemian Integrations</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <style>
+        /* ✅ Gentle wiggle and glow animation for cart icon */
+        @keyframes cartWiggle {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                filter: drop-shadow(0 0 0px #00ff80);
+            }
+
+            25% {
+                transform: scale(1.2) rotate(-5deg);
+                filter: drop-shadow(0 0 8px #00ff80);
+            }
+
+            50% {
+                transform: scale(1.1) rotate(5deg);
+            }
+
+            75% {
+                transform: scale(1.2) rotate(-5deg);
+            }
+        }
+
+        .cart-animate {
+            animation: cartWiggle 0.8s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Bohemian Integrations</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar & Hero Start -->
+    <div class="container-fluid position-relative p-0 fixed-top" style="position:fixed;top: 0%;">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="" class="navbar-brand p-0">
+                <h1 style="color: green;"><img src="img/Bohemian Integrations logo.jpg" alt="Logo"
+                        style="width: 70px;height: 70px;border-radius: 50px;">Bohemian Integrations</h1>
+
+            </a>
+            <a href="cart.html" class="position-relative me-4 my-auto">
+                <i class="fa fa-shopping-bag fa-2x"></i>
+                <span id="cart-count"
+                    class=" cart-count position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                    style="top: -5px; left: 15px; height: 20px; min-width: 20px;">0</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About</a>
+                    <a href="service.html" class="nav-item nav-link">Services</a>
+
+                    <div class="nav-item dropdown">
+                        <a href="product.html" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Products</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="product.html" class="dropdown-item">All Products</a>
+                            <a href="MeditationandWellnessCandles.html" class="dropdown-item">🕯️Meditation and Wellness
+                                Candles</a>
+                            <a href="HerbalandAromaticProducts.html" class="dropdown-item">🌿Herbal and Aromatic
+                                Products</a>
+                            <a href="HealingCrystalsandGemstones.html" class="dropdown-item">💎Healing Crystals and
+                                Gemstones(Jewelry)</a>
+                            <a href="SacredSpaceDecor.html" class="dropdown-item">🌻Sacred Space Decor</a>
+                            <a href="MindfulApparel.html" class="dropdown-item">👕Mindful Apparel and Clothing</a>
+                        </div>
+                    </div>
+                    <a href="cart.html" class="nav-item nav-link">Cart</a>
+                    <a href="Checkout.html" class="nav-item nav-link">Checkout</a>
+                    <a href="blog.html" class="nav-item nav-link">Blog</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                <div class="d-flex m-3 me-0">
+                    <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
+                        data-bs-toggle="modal" data-bs-target="#searchModal"><i
+                            class="fas fa-search text-primary"></i></button>
+                    <a href="#" class="position-relative me-4 my-auto">
+                        <i class="fa fa-shopping-bag fa-2x"></i>
+                        <span
+                            class=" cart-count position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;">0</span>
+                    </a>
+                    <a href="#" class="my-auto">
+                        <i class="fas fa-user fa-2x"></i>
+                    </a>
+                </div>
+
+            </div>
+        </nav>
+
+        <!-- Header Start -->
+        <div class="container-fluid bg-breadcrumb">
+            <div class="container text-center py-5" style="max-width: 900px;">
+                <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">
+                    ✨<BR>YOUR<BR>SHOPPING<BR>CART<BR>💃🏽🕺🏽😊</h4>
+
+            </div>
+        </div>
+        <!-- Header End -->
+    </div>
+    <!-- Navbar & Hero End -->
+
+    <!-- Modal Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h4 class="modal-title mb-0" id="exampleModalLabel">Search by keyword</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center">
+                    <div class="input-group w-75 mx-auto d-flex">
+                        <input type="search" class="form-control p-3" placeholder="keywords"
+                            aria-describedby="search-icon-1">
+                        <span id="search-icon-1" class="input-group-text btn border p-3"><i
+                                class="fa fa-search text-white"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Search End -->
+
+
+    <!-- Cart Page Start -->
+    <div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Products</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Remove From Cart</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cart-body">
+
+
+                        <tr>
+                            <th scope="row">
+                                <div class="d-flex align-items-center">
+                                    <img src="img/vegetable-item-3.png" class="img-fluid me-5 rounded-circle"
+                                        style="width: 80px; height: 80px;" alt="">
+                                </div>
+                            </th>
+                            <td>
+                                <p class="mb-0 mt-4">Big Banana</p>
+                            </td>
+                            <td>
+                                <p class="mb-0 mt-4">2.99 $</p>
+                            </td>
+                            <td>
+                                <div class="input-group quantity mt-4" style="width: 100px;">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm text-center border-0"
+                                        value="1">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="mb-0 mt-4">2.99 $</p>
+                            </td>
+
+                            <td>
+                                <button class="btn btn-md rounded-circle bg-light border mt-4">
+                                    <i class="fa fa-times text-danger"></i>
+                                </button>
+                            </td>
+
+
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                <div class="d-flex align-items-center">
+                                    <img src="img/vegetable-item-5.jpg" class="img-fluid me-5 rounded-circle"
+                                        style="width: 80px; height: 80px;" alt="" alt="">
+                                </div>
+                            </th>
+                            <td>
+                                <p class="mb-0 mt-4">Potatoes</p>
+                            </td>
+                            <td>
+                                <p class="mb-0 mt-4">2.99 $</p>
+                            </td>
+                            <td>
+                                <div class="input-group quantity mt-4" style="width: 100px;">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm text-center border-0"
+                                        value="1">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="mb-0 mt-4">2.99 $</p>
+                            </td>
+                            <td>
+                                <button class="btn btn-md rounded-circle bg-light border mt-4">
+                                    <i class="fa fa-times text-danger"></i>
+                                </button>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">
+                                <div class="d-flex align-items-center">
+                                    <img src="img/vegetable-item-2.jpg" class="img-fluid me-5 rounded-circle"
+                                        style="width: 80px; height: 80px;" alt="" alt="">
+                                </div>
+                            </th>
+                            <td>
+                                <p class="mb-0 mt-4">Awesome Brocoli</p>
+                            </td>
+                            <td>
+                                <p class="mb-0 mt-4">2.99 $</p>
+                            </td>
+                            <td>
+                                <div class="input-group quantity mb-5 " style="width: 100px; ">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm text-center border-0"
+                                        value="1" style="color: black;">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <p class="mb-0 mt-4">2.99 $</p>
+                            </td>
+                            <td>
+                                <button class="btn btn-md rounded-circle bg-light border mt-4">
+                                    <i class="fa fa-times text-danger"></i>
+                                </button>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-5">
+                <!--<input type="text" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Coupon Code">-->
+                <button id="clear-cart" class="btn border-secondary rounded-pill btn-danger px-4 py-3 text-white"
+                    type="button">Clear Cart</button>
+            </div>
+
+            <div class="row g-4 justify-content-end">
+                <div class="col-8"></div>
+                <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
+                    <div class="bg-light rounded">
+                        <div class="p-4">
+                            <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
+                            <div class="d-flex justify-content-between mb-4">
+                                <h5 class="mb-0 me-4">Subtotal:</h5>
+                                <p class="mb-0 subtotal">KES 0</p> <!-- ✅ subtotal -->
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <h5 class="mb-0 me-4">Logistics Fee</h5>
+                                <p class="mb-0 shipping">KES 0</p> <!-- ✅ shipping -->
+
+                            </div>
+                            <BR>
+                            <P class="mb-0 text-end">Free Deliveries around Nairobi CBD</P>
+                        </div>
+
+                        <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
+                            <h5 class="mb-0 ps-4 me-4">Total</h5>
+                            <p class="mb-0 pe-4 total">KES 0</p> <!-- ✅ total -->
+                        </div>
+
+                        <button id="proceed-checkout"
+                            class="btn border-secondary rounded-pill px-4 py-3 text-primary text-uppercase mb-4 ms-4"
+                            type="button">Proceed Checkout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Cart Page End -->
+
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+        <div class="container py-5">
+            <div class="row g-5 mb-5 align-items-center">
+                <!--<div class="col-lg-7">
+                    <div class="position-relative mx-auto">
+                        <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
+                            placeholder="Email address to Subscribe">
+                        <button type="button"
+                            class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 px-4 mt-2 me-2">Subscribe</button>
+                    </div>
+                </div>-->
+                <div class="col-lg-5">
+                    <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                class="fab fa-tiktok"></i></a>
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                class="fab fa-instagram"></i></a>
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-0" href=""><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <div class="footer-item">
+                            <h3 class="text-white mb-4"><img src="img/Bohemian Integrations logo.jpg" alt="Logo"
+                                    style="width: 70px;height: 70px;border-radius: 50px;">Bohemian Integrations
+                            </h3>
+                            <p class="mb-3">Connecting you,with your inner self🧘✨</p>
+                        </div>
+                        <div class="position-relative">
+                            <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
+                                placeholder="Enter your email">
+                            <button type="button"
+                                class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">SignUp</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Bohemian Integrations</h4>
+                        <a href="about.html"><i class="fas fa-angle-right me-2"></i> About us</a>
+                        <a href="service.html"><i class="fas fa-angle-right me-2"></i> Services</a>
+                        <a href="product.html"><i class="fas fa-angle-right me-2"></i> Products</a>
+                        <a href="cart.html"><i class="fas fa-angle-right me-2"></i> Cart</a>
+                        <a href="Checkout.html"><i class="fas fa-angle-right me-2"></i> Checkout</a>
+                        <a href="blog.html"><i class="fas fa-angle-right me-2"></i> Our Blog</a>
+                        <a href="contact.html"><i class="fas fa-angle-right me-2"></i> Contact us</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Business Hours</h4>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Mon - Friday:</h6>
+                            <p class="text-white mb-0">09.00 am to 07.00 pm</p>
+                        </div>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Saturday:</h6>
+                            <p class="text-white mb-0">10.00 am to 05.00 pm</p>
+                        </div>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Vacation:</h6>
+                            <p class="text-white mb-0">All Sunday is our vacation 🍹🌴</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Contact Info</h4>
+                        <a href="#"><i class="fa fa-map-marker-alt me-2"></i> Kileleshwa , Nairobi, Kenya</a>
+                        <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i>
+                            info@bohemianintegrations.com</a>
+                        <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i>
+                            bohemianintegrations@gmail.com</a>
+                        <a href="tel:+012 345 67890"><i class="fas fa-phone me-2"></i> +254 784587728</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Copyright Start -->
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-md-0">
+                    <span class="text-body"><a href="https://bohemianintegrations.shop"
+                            class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>Bohemian
+                            Integrations</a>, All right
+                        reserved.</span>
+                </div>
+                <div class="col-md-6 text-center text-md-end text-body">
+                    <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                    <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                    <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                    Designed By <a class="border-bottom text-white" href="https://3ric3mmanu3l.co.ke">3ric3mmanu3l</a>
+                    <!--Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright End -->
+
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
+            class="fa fa-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+
+    <!-- Template Javascript -->
+    <script src="js\main.js"></script>
+
+     <!--cart2 trial firebase
+    <script type="module">
+        import { db, auth } from "./firebase.js";
+        import { doc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartBody = document.getElementById('cart-body');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // ✅ Function to save cart to Firestore
+            async function saveCartToFirestore() {
+                const user = auth.currentUser;
+                if (!user) return; // only save if logged in
+
+                const cart = JSON.parse(localStorage.getItem("cart")) || [];
+                const userCartRef = doc(db, "carts", user.uid);
+
+                try {
+                    await setDoc(userCartRef, { items: cart }, { merge: true });
+                    console.log("🛒 Cart saved to Firestore for user:", user.email);
+                } catch (error) {
+                    console.error("❌ Error saving cart to Firestore:", error);
+                }
+            }
+
+            function renderCart() {
+                cartBody.innerHTML = '';
+                let subtotal = 0;
+
+                cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    subtotal += itemTotal;
+
+                    const row = `
+                    <tr>
+                        <td><img src="${item.image}" class="img-fluid rounded-circle" style="width: 80px; height: 80px;"></td>
+                        <td><p class="mt-4">${item.name}</p></td>
+                        <td><p class="mt-4">KES ${item.price}</p></td>
+                        <td>
+                            <div class="input-group quantity mt-4" style="width: 100px;">
+                                <button class="btn btn-sm btn-minus bg-light border" data-index="${index}">-</button>
+                                <input type="text" class="form-control form-control-sm text-center border-0" value="${item.quantity}">
+                                <button class="btn btn-sm btn-plus bg-light border" data-index="${index}">+</button>
+                            </div>
+                        </td>
+                        <td><p class="mt-4">KES ${itemTotal}</p></td>
+                        <td><button class="btn btn-sm btn-danger remove-item" data-index="${index}">×</button></td>
+                    </tr>`;
+                    cartBody.innerHTML += row;
+                });
+
+                const shipping = 0;
+                const total = subtotal + shipping;
+                document.querySelector('.subtotal').textContent = `KES ${subtotal.toFixed(2)}`;
+                document.querySelector('.shipping').textContent = `KES ${shipping.toFixed(2)}`;
+                document.querySelector('.total').textContent = `KES ${total.toFixed(2)}`;
+                updateCartCount();
+            }
+
+            function updateCartCount() {
+                const counts = document.querySelectorAll('.cart-count');
+                const cartIcons = document.querySelectorAll('.fa-shopping-bag');
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+                counts.forEach(c => c.textContent = totalItems);
+                cartIcons.forEach(icon => {
+                    icon.classList.add('cart-animate');
+                    setTimeout(() => icon.classList.remove('cart-animate'), 800);
+                });
+            }
+
+            // ✅ Handle plus/minus/remove clicks
+            document.addEventListener('click', async (e) => {
+                if (e.target.classList.contains('btn-plus')) {
+                    const i = e.target.getAttribute('data-index');
+                    cart[i].quantity++;
+                } else if (e.target.classList.contains('btn-minus')) {
+                    const i = e.target.getAttribute('data-index');
+                    if (cart[i].quantity > 1) cart[i].quantity--;
+                } else if (e.target.classList.contains('remove-item')) {
+                    const i = e.target.getAttribute('data-index');
+                    cart.splice(i, 1);
+                } else {
+                    return;
+                }
+
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+                await saveCartToFirestore(); // ✅ save every change
+            });
+
+            // ✅ CLEAR CART BUTTON
+            document.getElementById('clear-cart').addEventListener('click', async () => {
+                localStorage.removeItem('cart');
+                cart = [];
+                renderCart();
+                await saveCartToFirestore();
+            });
+
+            renderCart();
+            updateCartCount();
+
+            // ✅ Handle "Proceed Checkout" button click
+            document.getElementById('proceed-checkout').addEventListener('click', () => {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                if (cart.length === 0) {
+                    showToast('🛍️ Your cart is empty — please add something first.');
+                    return;
+                }
+
+                window.location.href = 'Checkout.html';
+            });
+
+            function showToast(message) {
+                const msg = document.createElement('div');
+                msg.textContent = message;
+                msg.style.position = 'fixed';
+                msg.style.top = '50%';
+                msg.style.left = '50%';
+                msg.style.transform = 'translate(-50%, -50%) scale(0.9)';
+                msg.style.background = 'rgba(222, 184, 135, 0.95)';
+                msg.style.color = '#1a4d2e';
+                msg.style.padding = '16px 28px';
+                msg.style.borderRadius = '18px';
+                msg.style.boxShadow = '0 6px 18px rgba(0,0,0,0.25)';
+                msg.style.fontWeight = '600';
+                msg.style.transition = 'all 0.3s ease';
+                msg.style.zIndex = '10000';
+                document.body.appendChild(msg);
+
+                requestAnimationFrame(() => {
+                    msg.style.transform = 'translate(-50%, -50%) scale(1)';
+                    msg.style.opacity = '1';
+                });
+
+                setTimeout(() => {
+                    msg.style.transform = 'translate(-50%, -60%) scale(0.95)';
+                    msg.style.opacity = '0';
+                    setTimeout(() => msg.remove(), 500);
+                }, 2500);
+            }
+        });
+
+        saveCartToFirestore();
+
+    </script>-->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cartBody = document.getElementById('cart-body');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            function renderCart() {
+                cartBody.innerHTML = '';
+                let subtotal = 0;
+
+                cart.forEach((item, index) => {
+                    const itemTotal = item.price * item.quantity;
+                    subtotal += itemTotal;
+
+                    const row = `
+        <tr>
+          <td><img src="${item.image}" class="img-fluid rounded-circle" style="width: 80px; height: 80px;"></td>
+          <td><p class="mt-4">${item.name}</p></td>
+          <td><p class="mt-4">KES ${item.price}</p></td>
+          <td>
+            <div class="input-group quantity mt-4" style="width: 100px;">
+              <button class="btn btn-sm btn-minus bg-light border" data-index="${index}">-</button>
+              <input type="text" class="form-control form-control-sm text-center border-0" value="${item.quantity}">
+              <button class="btn btn-sm btn-plus bg-light border" data-index="${index}">+</button>
+            </div>
+          </td>
+          <td><p class="mt-4">KES ${itemTotal}</p></td>
+          <td><button class="btn btn-sm btn-danger remove-item" data-index="${index}">×</button></td> <!-- ✅ Remove button -->
+        </tr>
+      `;
+                    cartBody.innerHTML += row;
+                });
+
+                const shipping = 0; // flat logistics fee
+                const total = subtotal + shipping;
+
+                // ✅ Update the totals on the page
+                document.querySelector('.subtotal').textContent = `KES ${subtotal.toFixed(2)}`;
+                document.querySelector('.shipping').textContent = `KES ${shipping.toFixed(2)}`;
+                document.querySelector('.total').textContent = `KES ${total.toFixed(2)}`;
+
+                updateCartCount(); // ✅ update the cart icon number
+            }
+
+            // ✅ Add this right below renderCart() to update cart icon number count
+            function updateCartCount() {
+                const counts = document.querySelectorAll('.cart-count');
+                const cartIcons = document.querySelectorAll('.fa-shopping-bag');
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+                counts.forEach(c => c.textContent = totalItems);
+
+                // ✨ Add the animation
+                cartIcons.forEach(icon => {
+                    icon.classList.add('cart-animate');
+                    setTimeout(() => icon.classList.remove('cart-animate'), 800); // remove after animation ends
+                });
+            }
+
+
+
+            // ✅ Handle plus/minus/remove clicks
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('btn-plus')) {
+                    const i = e.target.getAttribute('data-index');
+                    cart[i].quantity++;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCart();
+                }
+
+                if (e.target.classList.contains('btn-minus')) {
+                    const i = e.target.getAttribute('data-index');
+                    if (cart[i].quantity > 1) cart[i].quantity--;
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCart();
+                }
+
+                if (e.target.classList.contains('remove-item')) {
+                    const i = e.target.getAttribute('data-index');
+                    cart.splice(i, 1); // ✅ remove that item from array
+                    localStorage.setItem('cart', JSON.stringify(cart));
+                    renderCart();
+                }
+            });
+
+            renderCart();
+
+
+
+            //CLEAR CART BUTTON
+            document.getElementById('clear-cart').addEventListener('click', () => {
+                localStorage.removeItem('cart');
+                location.reload();
+            });
+
+            updateCartCount(); // ✅ ensures count shows correctly when page loads
+
+            /* ✅ Handle "Proceed Checkout" button click
+            document.getElementById('proceed-checkout').addEventListener('click', () => {
+                // Optionally verify the cart is not empty
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                if (cart.length === 0) {
+                    alert('Your cart is empty. Please add something first 🛒');
+                    return;
+                }
+
+                // Navigate to checkout page
+                window.location.href = 'Checkout.html';
+            });*/
+
+
+            // ✅ Handle "Proceed Checkout" button click smoothly
+            document.getElementById('proceed-checkout').addEventListener('click', () => {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                if (cart.length === 0) {
+                    // 🌸 Create a soft toast for empty cart
+                    const msg = document.createElement('div');
+                    msg.textContent = '🛍️ Your cart is empty — please add something first.';
+                    msg.style.position = 'fixed';
+                    msg.style.top = '50%';
+                    msg.style.left = '50%';
+                    msg.style.transform = 'translate(-50%, -50%) scale(0.9)';
+                    msg.style.background = 'rgba(222, 184, 135, 0.95)'; // burlywood tone
+                    msg.style.color = '#1a4d2e'; // soft green
+                    msg.style.padding = '16px 28px';
+                    msg.style.borderRadius = '18px';
+                    msg.style.boxShadow = '0 6px 18px rgba(0,0,0,0.25)';
+                    msg.style.fontWeight = '600';
+                    msg.style.transition = 'all 0.3s ease';
+                    msg.style.zIndex = '10000';
+                    document.body.appendChild(msg);
+
+                    // animate in
+                    requestAnimationFrame(() => {
+                        msg.style.transform = 'translate(-50%, -50%) scale(1)';
+                        msg.style.opacity = '1';
+                    });
+
+                    // fade out after 2.5s
+                    setTimeout(() => {
+                        msg.style.transform = 'translate(-50%, -60%) scale(0.95)';
+                        msg.style.opacity = '0';
+                        setTimeout(() => msg.remove(), 500);
+                    }, 2500);
+                    return;
+                }
+
+                // ✅ If cart has items, proceed to checkout
+                window.location.href = 'Checkout.html';
+            });
+
+
+
+
+        });
+    </script>
+
+</body>
+
+</html>

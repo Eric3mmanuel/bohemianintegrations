@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bohemian Integrations</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Bohemian Integrations</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar & Hero Start -->
+    <div class="container-fluid position-relative p-0">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="" class="navbar-brand p-0">
+                <h1 style="color: green;"><img src="img/Bohemian Integrations logo.jpg" alt="Logo"
+                        style="width: 70px;height: 70px;border-radius: 50px;">Bohemian Integrations</h1>
+
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About</a>
+                    <a href="service.html" class="nav-item nav-link">Services</a>
+                    
+                    <div class="nav-item dropdown">
+                        <a href="product.html" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Products</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="product.html" class="dropdown-item">All Products</a>
+                            <a href="MeditationandWellnessCandles.html" class="dropdown-item">🕯️Meditation and Wellness Candles</a>
+                            <a href="HerbalandAromaticProducts.html" class="dropdown-item">🌿Herbal and Aromatic Products</a>
+                            <a href="HealingCrystalsandGemstones.html" class="dropdown-item">💎Healing Crystals and Gemstones(Jewelry)</a>
+                            <a href="SacredSpaceDecor.html" class="dropdown-item">🌻Sacred Space Decor</a>
+                            <a href="MindfulApparel.html" class="dropdown-item">👕Mindful Apparel and Clothing</a>
+                        </div>
+                    </div>
+                    <a href="blog.html" class="nav-item nav-link">Blog</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                <div class="d-none d-xl-flex me-3">
+                    <div class="d-flex flex-column pe-3 border-end border-primary">
+                        <span class="text-body">Get Free Delivery</span>
+                        <a href="tel:+4733378901"><span class="text-primary">Free: + 0123 456 7890</span></a>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+
+            <!-- Header Start -->
+            <div class="container-fluid bg-breadcrumb">
+                <div class="container text-center py-5" style="max-width: 900px;">
+                    <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">About Us</h4>
+                    <ol class="breadcrumb d-flex justify-content-center mb-0 wow fadeInDown" data-wow-delay="0.3s">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                        <li class="breadcrumb-item active text-primary">About</li>
+                    </ol>    
+                </div>
+            </div>
+            <!-- Header End -->
+        </div>
+        <!-- Navbar & Hero End -->
+
+        <!-- Modal Search Start -->
+        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-fullscreen">
+                <div class="modal-content rounded-0">
+                    <div class="modal-header">
+                        <h4 class="modal-title mb-0" id="exampleModalLabel">Search by keyword</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body d-flex align-items-center">
+                        <div class="input-group w-75 mx-auto d-flex">
+                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                            <span id="search-icon-1" class="input-group-text btn border p-3"><i class="fa fa-search text-white"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Search End -->
+
+        <!-- About Start -->
+    <div class="container-fluid about overflow-hidden py-5">
+        <div class="container py-5">
+            <div class="row g-5">
+                <div class="col-xl-6 wow fadeInLeft" data-wow-delay="0.2s">
+                    <div class="about-img rounded h-100">
+                        <img src="img\Bohemian Integrations logo.jpg" class="img-fluid w-100" alt="Image"
+                            style="border-radius: 50%;">
+
+                    </div>
+                </div>
+                <div class="col-xl-6 wow fadeInRight" data-wow-delay="0.2s">
+                    <div class="about-item">
+                        <h4 class="text-primary text-uppercase">About Us</h4>
+                        <h1 class="display-3 mb-3">Bohemian Integrations</h1>
+                        <p class="mb-4">
+                            <b>Connecting you , with your inner self 🧘✨<br></b>
+
+                            Bohemian Integrations was born from a deep desire to help souls reconnect with their inner
+                            worlds. We believe that true wellness begins within — in the quiet spaces of the mind, in
+                            the rhythm of breath, and in the energy that flows through all living things.<br>
+
+                            Every product we offer — from hand-poured meditation candles to sacred herbs and incense —
+                            is crafted or chosen with love, mindfulness, and purpose. Our mission is to bring you tools
+                            that awaken peace, balance, and spiritual awareness in your daily life.<br>
+
+                            Inspired by nature, guided by intuition, and grounded in authenticity, Bohemian Integrations
+                            is more than a brand — it’s a movement toward wholeness and conscious living.<br>
+
+                            ✨ We invite you to slow down, light a candle, and journey inward. 🕯️<br>
+                            <br>
+                            Before we continue,take a moment to breathe with a short guided meditation to help in aligning your energy into setting 
+                            the right intention and to focus your attention more as you explore Bohemian Integrations .<br>
+
+                            Thankyou and enjoy your short meditation session 🧘💚.
+                        </p>
+                        <div class="bg-light rounded p-4 mb-4">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="d-flex">
+                                        <div class="pe-4">
+                                           
+                                        <div class="">
+                                            <a href="#" class="h4 d-inline-block mb-3">Guided Meditation</a>
+                                            <br>
+                                            <audio controls>
+                                                <source src="img\Guided Meditation (1).mp3" type="audio/mpeg">
+                                            </audio>
+                                        </div>
+                                         <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center"
+                                                style="width: 80px; height: 80px;"><i
+                                                    class="fas fa-tint text-white fa-2x"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a class="btn btn-secondary rounded-pill py-3 px-5">Love and Light</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+        
+
+       <!-- feature Start -->
+    <div class="container-fluid feature bg-light py-5">
+        <div class="container py-5">
+            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                <h4 style="color: white;">Karibuni/Welcome to </h4>
+                <h1 class="display-3 text-capitalize mb-3">Bohemian Integrations</h1>
+                <p>Connecting you,with you inner self🧘✨</p>
+            </div>
+            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                <br>
+                <img src="img\namaste2.jpg" class="img-fluid w-100" alt="Image" style="border-radius: 50%;">
+
+                <h4 class="text-uppercase text-primary">⭐⭐⭐</h4>
+                <br>
+
+                
+            </div>
+            <div class="row g-4">
+                <div class=" col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="feature-item p-4">
+                        <div class="feature-icon mb-3"><img src="img\Vision,mission,goal,purpose\Vision.png" alt="Logo"
+                                style="width: 90px;height: 90px;border-radius: 50px;"></div>
+                        <a href="#" class="h4 mb-3" style="color: rgb(180, 144, 96);">Our Vision 🌍</a>
+                        <p class="mb-3">To awaken a movement of self aware ,purely natural ,healthy and high
+                            frequency human beings living in harmony with mother Earth ,Nature ,their fellow humans and
+                            their inner selves ,walking towards a more beautiful world, full of beauty and splendour .so
+                            as to become one with the universe .</p>
+
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.4s">
+                    <div class="feature-item p-4">
+                        <div class="feature-icon mb-3"><img src="img\Vision,mission,goal,purpose\Mission.png" alt="Logo"
+                                style="width: 90px;height: 90px;border-radius: 50px;"></div>
+                        <a href="#" class="h4 mb-3" style="color: rgb(180, 144, 96);">Our Mission 🚀</a>
+                        <p class="mb-3">We are committed to reconnecting humanity with the healing intelligence
+                            of nature .Through consciously crafted herbal products ,ancient wellness practices and
+                            vibration raising tools ,we empower individuals to rediscover balance ,beauty and their true
+                            essence .</p>
+
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.6s">
+                    <div class="feature-item p-4">
+                        <div class="feature-icon mb-3"><img src="img\Vision,mission,goal,purpose\Goal.png" alt="Logo"
+                                style="width: 90px;height: 90px;border-radius: 50px;"></div>
+                        <a href="#" class="h4 mb-3" style="color: rgb(180, 144, 96);">Our Goal ✨</a>
+                        <p class="mb-3">To become a leading source of holistic wellness by offering ethically
+                            sourced ,nature based products and practices that support physical health,mental clarity
+                            ,spiritual growth and energetic alignment.To turn the world back into the beautiful vision
+                            that our creator had,for us.</p>
+
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3 wow fadeInUp" data-wow-delay="0.8s">
+                    <div class="feature-item p-4">
+                        <div class="feature-icon mb-3"><img src="img\Vision,mission,goal,purpose\Purpose.png" alt="Logo"
+                                style="width: 90px;height: 90px;border-radius: 50px;"></div>
+                        <a href="#" class="h4 mb-3" style="color: rgb(180, 144, 96);">Our Purpose 🍀</a>
+                        <p class="mb-3">Our purpose is to guide people back to their natural state of well being
+                            by providing tools ,products,and education that nurture the body ,calm the mind and elevate
+                            the soul - helping each person raise their vibes and live in tune with the rhythms of nature
+                            ,so as to become one with the universe </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- feature End -->
+
+        <!-- Footer Start -->
+    <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+        <div class="container py-5">
+            <div class="row g-5 mb-5 align-items-center">
+                <!--<div class="col-lg-7">
+                    <div class="position-relative mx-auto">
+                        <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
+                            placeholder="Email address to Subscribe">
+                        <button type="button"
+                            class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 px-4 mt-2 me-2">Subscribe</button>
+                    </div>
+                </div>-->
+                <div class="col-lg-5">
+                    <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                class="fab fa-tiktok"></i></a>
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                class="fab fa-instagram"></i></a>
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-0" href=""><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <div class="footer-item">
+                            <h3 class="text-white mb-4"><img src="img/Bohemian Integrations logo.jpg" alt="Logo"
+                        style="width: 70px;height: 70px;border-radius: 50px;">Bohemian Integrations
+                            </h3>
+                            <p class="mb-3">Connecting you,with your inner self🧘✨</p>
+                        </div>
+                        <div class="position-relative">
+                            <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
+                                placeholder="Enter your email">
+                            <button type="button"
+                                class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">SignUp</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Bohemian Integrations</h4>
+                        <a href="about.html"><i class="fas fa-angle-right me-2"></i> About us</a>
+                        <a href="service.html"><i class="fas fa-angle-right me-2"></i> Services</a>
+                        <a href="product.html"><i class="fas fa-angle-right me-2"></i> Products</a>
+                        <a href="cart.html"><i class="fas fa-angle-right me-2"></i> Cart</a>
+                        <a href="Checkout.html"><i class="fas fa-angle-right me-2"></i> Checkout</a>
+                        <a href="blog.html"><i class="fas fa-angle-right me-2"></i> Our Blog</a>
+                        <a href="contact.html"><i class="fas fa-angle-right me-2"></i> Contact us</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Business Hours</h4>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Mon - Friday:</h6>
+                            <p class="text-white mb-0">09.00 am to 07.00 pm</p>
+                        </div>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Saturday:</h6>
+                            <p class="text-white mb-0">10.00 am to 05.00 pm</p>
+                        </div>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Vacation:</h6>
+                            <p class="text-white mb-0">All Sunday is our vacation 🍹🌴</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Contact Info</h4>
+                        <a href="#"><i class="fa fa-map-marker-alt me-2"></i> Kileleshwa , Nairobi, Kenya</a>
+                        <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i> info@bohemianintegrations.com</a>
+                        <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i> bohemianintegrations@gmail.com</a>
+                        <a href="tel:+012 345 67890"><i class="fas fa-phone me-2"></i> +254 784587728</a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+        
+         <!-- Copyright Start -->
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-md-0">
+                    <span class="text-body"><a href="https://bohemianintegrations.shop" class="border-bottom text-white"><i
+                                class="fas fa-copyright text-light me-2"></i>Bohemian Integrations</a>, All right
+                        reserved.</span>
+                </div>
+                <div class="col-md-6 text-center text-md-end text-body">
+                    <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                    <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                    <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                    Designed By <a class="border-bottom text-white" href="https://3ric3mmanu3l.co.ke">3ric3mmanu3l</a>
+                    <!--Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright End -->
+
+
+        <!-- Back to Top -->
+        <a href="#" class="btn btn-secondary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+
+        
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Bohemian Integrations</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wdth,wght@0,75..100,300..800;1,75..100,300..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Icon Font Stylesheet -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        /* ✅ Gentle wiggle and glow animation for cart icon */
+        @keyframes cartWiggle {
+
+            0%,
+            100% {
+                transform: scale(1) rotate(0deg);
+                filter: drop-shadow(0 0 0px #00ff80);
+            }
+
+            25% {
+                transform: scale(1.2) rotate(-5deg);
+                filter: drop-shadow(0 0 8px #00ff80);
+            }
+
+            50% {
+                transform: scale(1.1) rotate(5deg);
+            }
+
+            75% {
+                transform: scale(1.2) rotate(-5deg);
+            }
+        }
+
+        .cart-animate {
+            animation: cartWiggle 0.8s ease-in-out;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Spinner Start -->
+    <div id="spinner"
+        class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Bohemian Integrations</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+    <!-- Navbar & Hero Start -->
+    <div class="container-fluid position-relative p-0 fixed-top" style="position:fixed;top: 0%;">
+        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
+            <a href="" class="navbar-brand p-0">
+                <h1 style="color: green;"><img src="img/Bohemian Integrations logo.jpg" alt="Logo"
+                        style="width: 70px;height: 70px;border-radius: 50px;">Bohemian Integrations</h1>
+
+            </a>
+            <a href="cart.html" class="position-relative me-4 my-auto">
+                <i class="fa fa-shopping-bag fa-2x"></i>
+                <span
+                    class="cart-count position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                    style="top: -5px; left: 15px; height: 20px; min-width: 20px;">0</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="fa fa-bars"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <div class="navbar-nav ms-auto py-0">
+                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About</a>
+                    <a href="service.html" class="nav-item nav-link">Services</a>
+
+                    <div class="nav-item dropdown">
+                        <a href="product.html" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Products</a>
+                        <div class="dropdown-menu m-0">
+                            <a href="product.html" class="dropdown-item">All Products</a>
+
+                            <a href="MeditationandWellnessCandles.html" class="dropdown-item ">🕯️Meditation and
+                                Wellness
+                                Candles</a>
+
+                            <a href="HerbalandAromaticProducts.html" class="dropdown-item">🌿Herbal and Aromatic
+                                Products</a>
+                            <a href="HealingCrystalsandGemstones.html" class="dropdown-item">💎Healing Crystals and
+                                Gemstones(Jewelry)</a>
+                            <a href="SacredSpaceDecor.html" class="dropdown-item">🌻Sacred Space Decor</a>
+                            <a href="MindfulApparel.html" class="dropdown-item">👕Mindful Apparel and Clothing</a>
+                        </div>
+                    </div>
+                    <a href="cart.html" class="nav-item nav-link">Cart</a>
+                    <a href="Checkout.html" class="nav-item nav-link">Checkout</a>
+                    <a href="blog.html" class="nav-item nav-link">Blog</a>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+                <div class="d-flex m-3 me-0">
+                    <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
+                        data-bs-toggle="modal" data-bs-target="#searchModal"><i
+                            class="fas fa-search text-primary"></i></button>
+                    <a href="cart.html" class="position-relative me-4 my-auto">
+                        <i class="fa fa-shopping-bag fa-2x"></i>
+                        <span
+                            class="cart-count position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;">0</span>
+                    </a>
+                    <a href="#" class="my-auto">
+                        <i class="fas fa-user fa-2x"></i>
+                    </a>
+                </div>
+
+            </div>
+        </nav>
+
+        <!-- Header Start -->
+        <div class="container-fluid bg-breadcrumb">
+            <div class="container text-center py-5" style="max-width: 900px;">
+                <h4 class="text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">💎 Healing Crystals &
+                    Gemstones(Jewelry)</h4>
+
+            </div>
+        </div>
+        <!-- Header End -->
+    </div>
+    <!-- Navbar & Hero End -->
+
+    <!-- Modal Search Start -->
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h4 class="modal-title mb-0" id="exampleModalLabel">Search by keyword</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body d-flex align-items-center">
+                    <div class="input-group w-75 mx-auto d-flex">
+                        <input type="search" class="form-control p-3" placeholder="keywords"
+                            aria-describedby="search-icon-1">
+                        <span id="search-icon-1" class="input-group-text btn border p-3"><i
+                                class="fa fa-search text-white"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Search End -->
+
+    <!-- Products Start -->
+    <div class="container-fluid product py-5">
+        <div class="container py-5">
+            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+                <h4 class="text-uppercase text-primary">📿 Crystal Jewelry</h4>
+                <h1 class="display-3 text-capitalize mb-3">Bohemian Integrations</h1>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="product-item">
+                        <img src="img\Healing crystals and gemstones\Crystal Jewellery\Amethyst serenity bracelet.jpeg"
+                            class="img-fluid w-100 rounded-top" alt="Image" style="width: 600px;height: 340px;">
+                        <div class=" product-content bg-light text-center rounded-bottom p-4">
+
+                            <a href="#" class="h4 d-inline-block mb-3 product-name ">Amethyst Serenity Bracelet</a>
+                            <p>Encourages calm, balance, and spiritual clarity.</p>
+                            <p class="fs-4 text-white mb-3 product-price ">Ksh 400</p>
+                            <div class="input-group quantity mb-5 " style="width: 100px; left: 37.5%;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="number" min="1" value="1"
+                                    class="product-qty form-control form-control-sm text-center border-0 "
+                                    style="color: black;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <a href="#" class="add-to-cart btn btn-secondary rounded-pill py-2 px-4">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="product-item">
+                        <img src="img\Healing crystals and gemstones\Crystal Jewellery\Rose Quartz heart necklace.jpeg"
+                            class="img-fluid w-100 rounded-top" alt="Image" style="width: 600px;height: 340px;">
+                        <div class="product-content bg-light text-center rounded-bottom p-4">
+
+                            <a href="#" class="h4 d-inline-block mb-3 product-name ">Rose Quartz Heart Necklace</a>
+                            <p>opens the heart to love and self-acceptance.</p>
+                            <p class="fs-4 text-white mb-3 product-price">Ksh 400</p>
+                            <div class="input-group quantity mb-5 " style="width: 100px; left: 37.5%;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="number" min="1" value="1"
+                                    class="product-qty form-control form-control-sm text-center border-0 "
+                                    style="color: black;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <a href="#" class=" add-to-cart btn btn-secondary rounded-pill py-2 px-4">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="product-item">
+                        <img src="img\Healing crystals and gemstones\Crystal Jewellery\Citrine prosperity ring.jpeg"
+                            class="img-fluid w-100 rounded-top" alt="Image" style="width: 600px;height: 340px;">
+                        <div class="product-content bg-light text-center rounded-bottom p-4">
+
+                            <a href="#" class="product-name h4 d-inline-block mb-3">Citrine Prosperity Ring</a>
+                            <p>Attracts abundance and radiant positivity.</p>
+                            <p class="fs-4 text-white mb-3 product-price ">Ksh 400</p>
+                            <div class="input-group quantity mb-5 " style="width: 100px; left: 37.5%;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="number" min="1" value="1"
+                                    class="product-qty form-control form-control-sm text-center border-0 "
+                                    style="color: black;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <a href="#" class=" add-to-cart btn btn-secondary rounded-pill py-2 px-4">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="product-item">
+                        <img src="img\Healing crystals and gemstones\Crystal Jewellery\Lapiz lazili wisdom pendant.jpeg"
+                            class="img-fluid w-100 rounded-top" alt="Image" style="width: 600px;height: 340px;">
+                        <div class="product-content bg-light text-center rounded-bottom p-4">
+
+                            <a href="#" class="product-name h4 d-inline-block mb-3">Lapis Lazuli Wisdom Pendant</a>
+                            <p>Awakens intuition and truth.</p>
+                            <p class="fs-4 text-white mb-3 product-price  ">Ksh 400</p>
+                            <div class="input-group quantity mb-5 " style="width: 100px; left: 37.5%;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="number" min="1" value="1"
+                                    class="product-qty form-control form-control-sm text-center border-0 "
+                                    style="color: black;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <a href="#" class=" add-to-cart btn btn-secondary rounded-pill py-2 px-4">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.2s">
+                    <div class="product-item">
+                        <img src="img\Healing crystals and gemstones\Crystal Jewellery\Black tourmaline protection anklet.jpeg"
+                            class="img-fluid w-100 rounded-top" alt="Image" style="width: 600px;height: 340px;">
+                        <div class="product-content bg-light text-center rounded-bottom p-4">
+
+                            <a href="#" class="product-name h4 d-inline-block mb-3">Black Tourmaline Protection
+                                Anklet</a>
+                            <p>Shields against negativity and grounding energy.</p>
+                            <p class="fs-4 text-white mb-3 product-price  ">Ksh 400</p>
+                            <div class="input-group quantity mb-5 " style="width: 100px; left: 37.5%;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="number" min="1" value="1"
+                                    class="product-qty form-control form-control-sm text-center border-0 "
+                                    style="color: black;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <a href="#" class=" add-to-cart btn btn-secondary rounded-pill py-2 px-4">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+    <!-- Products End -->
+
+     <!-- 🌿 Centered Add-to-Cart Toast -->
+    <div id="cart-toast" class="cart-toast">
+        <div class="cart-toast-content">
+            <button class="close-toast">&times;</button>
+            <h5>✨ Added to your cart!</h5>
+            <div class="cart-toast-body">
+                <img id="toast-image" src="" alt="Product" />
+                <div>
+                    <p id="toast-name" class="toast-name"></p>
+                    <p id="toast-price" class="toast-price"></p>
+                    <p id="toast-qty" class="toast-qty"></p>
+                </div>
+            </div>
+            <div class="cart-toast-footer">
+                <button id="toast-view-cart" class="toast-btn">View Cart</button>
+                <button id="toast-continue" class="toast-btn-outline">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+    <!-- 🌿 Centered Add-to-Cart Toast End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+        <div class="container py-5">
+            <div class="row g-5 mb-5 align-items-center">
+                <!--<div class="col-lg-7">
+                    <div class="position-relative mx-auto">
+                        <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
+                            placeholder="Email address to Subscribe">
+                        <button type="button"
+                            class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 px-4 mt-2 me-2">Subscribe</button>
+                    </div>
+                </div>-->
+                <div class="col-lg-5">
+                    <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                class="fab fa-tiktok"></i></a>
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                class="fab fa-instagram"></i></a>
+                        <a class="btn btn-secondary btn-md-square rounded-circle me-0" href=""><i
+                                class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-5">
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <div class="footer-item">
+                            <h3 class="text-white mb-4"><img src="img/Bohemian Integrations logo.jpg" alt="Logo"
+                                    style="width: 70px;height: 70px;border-radius: 50px;">Bohemian Integrations
+                            </h3>
+                            <p class="mb-3">Connecting you,with your inner self🧘✨</p>
+                        </div>
+                        <div class="position-relative">
+                            <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
+                                placeholder="Enter your email">
+                            <button type="button"
+                                class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">SignUp</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Bohemian Integrations</h4>
+                        <a href="about.html"><i class="fas fa-angle-right me-2"></i> About us</a>
+                        <a href="service.html"><i class="fas fa-angle-right me-2"></i> Services</a>
+                        <a href="product.html"><i class="fas fa-angle-right me-2"></i> Products</a>
+                        <a href="cart.html"><i class="fas fa-angle-right me-2"></i> Cart</a>
+                        <a href="Checkout.html"><i class="fas fa-angle-right me-2"></i> Checkout</a>
+                        <a href="blog.html"><i class="fas fa-angle-right me-2"></i> Our Blog</a>
+                        <a href="contact.html"><i class="fas fa-angle-right me-2"></i> Contact us</a>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Business Hours</h4>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Mon - Friday:</h6>
+                            <p class="text-white mb-0">09.00 am to 07.00 pm</p>
+                        </div>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Saturday:</h6>
+                            <p class="text-white mb-0">10.00 am to 05.00 pm</p>
+                        </div>
+                        <div class="mb-3">
+                            <h6 class="text-muted mb-0">Vacation:</h6>
+                            <p class="text-white mb-0">All Sunday is our vacation 🍹🌴</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6 col-xl-3">
+                    <div class="footer-item d-flex flex-column">
+                        <h4 class="text-white mb-4">Contact Info</h4>
+                        <a href="#"><i class="fa fa-map-marker-alt me-2"></i> Kileleshwa , Nairobi, Kenya</a>
+                        <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i>
+                            info@bohemianintegrations.com</a>
+                        <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i>
+                            bohemianintegrations@gmail.com</a>
+                        <a href="tel:+012 345 67890"><i class="fas fa-phone me-2"></i> +254 784587728</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Copyright Start -->
+    <div class="container-fluid copyright py-4">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-md-6 text-center text-md-start mb-md-0">
+                    <span class="text-body"><a href="https://bohemianintegrations.shop"
+                            class="border-bottom text-white"><i class="fas fa-copyright text-light me-2"></i>Bohemian
+                            Integrations</a>, All right
+                        reserved.</span>
+                </div>
+                <div class="col-md-6 text-center text-md-end text-body">
+                    <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
+                    <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
+                    <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
+                    Designed By <a class="border-bottom text-white" href="https://3ric3mmanu3l.co.ke">3ric3mmanu3l</a>
+                    <!--Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Copyright End -->
+
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-secondary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>
+
+
+    <!-- JavaScript Libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/wow/wow.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/counterup/counterup.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+
+
+    <!-- Template Javascript -->
+    <script src="js/main.js"></script>
+
+    <script>
+
+        // ✅ Universal cart count + animation function (works on any page)
+        function updateCartCount() {
+            const counts = document.querySelectorAll('.cart-count');
+            const cartIcons = document.querySelectorAll('.fa-shopping-bag');
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            // Update the count text
+            counts.forEach(c => c.textContent = totalItems);
+
+            // Animate the icons for feedback
+            cartIcons.forEach(icon => {
+                icon.classList.add('cart-animate');
+                setTimeout(() => icon.classList.remove('cart-animate'), 800);
+            });
+        }
+
+        // 🌼 Center Toast product added to cart Popup Logic
+        function showCartToast(product) {
+            const toast = document.getElementById('cart-toast');
+            const toastImg = document.getElementById('toast-image');
+            const toastName = document.getElementById('toast-name');
+            const toastPrice = document.getElementById('toast-price');
+            const toastQty = document.getElementById('toast-qty');
+
+            // Fill details
+            toastImg.src = product.image;
+            toastName.textContent = product.name;
+            toastPrice.textContent = `KES ${product.price}`;
+            toastQty.textContent = `Qty: ${product.quantity}`;
+
+            // Show toast
+            toast.classList.add('show');
+
+            // Hide after 4 seconds
+            setTimeout(() => toast.classList.remove('show'), 4000);
+        }
+
+        // ✨ Close manually or via buttons
+        document.addEventListener('click', (e) => {
+            if (
+                e.target.classList.contains('close-toast') ||
+                e.target.id === 'toast-continue'
+            ) {
+                document.getElementById('cart-toast').classList.remove('show');
+            }
+        });
+
+        document.getElementById('toast-view-cart').addEventListener('click', () => {
+            window.location.href = 'cart.html';
+        });
+
+
+
+        // Run when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const addToCartButtons = document.querySelectorAll('.add-to-cart'); // Buttons you’ll mark
+
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.preventDefault();   // prevent page scroll or reload
+                    event.stopPropagation();  // just in case parent elements react
+
+
+                    const productCard = event.target.closest('.product-item');
+                    const qtyInput = productCard.querySelector('.product-qty');
+                    const qty = parseInt(qtyInput?.value || "1");
+
+                    const product = {
+                        name: productCard.querySelector('.product-name').textContent,
+                        price: parseFloat(productCard.querySelector('.product-price').textContent.replace(/[^\d.]/g, '')),
+                        image: productCard.querySelector('img').getAttribute('src'),
+                        quantity: qty
+                    };
+
+
+                    // Get current cart items or create empty array
+                    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+                    // Check if product already exists
+                    const existing = cart.find(item => item.name === product.name);
+                    if (existing) {
+                        existing.quantity += 1;
+                    } else {
+                        cart.push(product);
+                    }
+
+                    localStorage.setItem('cart', JSON.stringify(cart));
+
+                    // --- pretty animated popup ---
+                    /*const msg = document.createElement('div');
+                    msg.textContent = `${product.name} added to cart!`;
+                    msg.classList.add('added-to-cart-popup');
+                    document.body.appendChild(msg);
+                    setTimeout(() => msg.remove(), 1500);*/
+
+                    showCartToast(product);
+
+
+
+                    // ✅ update cart icon immediately after adding
+                    updateCartCount();
+
+
+
+                });
+            });
+
+            // ✅ Load the correct count from localStorage when page first loads
+            updateCartCount();
+        });
+    </script>
+
+</body>
+
+</html>

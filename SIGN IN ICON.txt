@@ -1,0 +1,139 @@
+1.Create a sign in icon 
+
+<a href="#" class="my-auto" data-bs-toggle="modal" data-bs-target="#authModal">
+  <i class="fas fa-user fa-2x"></i>
+</a>
+
+2.below </nav> add the auth modal
+
+<!-- Auth Modal -->
+        <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content p-4">
+                    <div class="modal-header border-0">
+                        <h5 class="modal-title">Sign In / Sign Up</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="email" id="email" class="form-control mb-3" placeholder="Email">
+                        <input type="password" id="password" class="form-control mb-3" placeholder="Password">
+                        <button id="signup" class="btn btn-success w-100 mb-2">Sign Up</button>
+                        <button id="login" class="btn btn-primary w-100">Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--auth modal close-->
+
+3.add this script before </body > tag
+
+<!-- Firebase Authentication Script -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import {
+            getAuth,
+            createUserWithEmailAndPassword,
+            signInWithEmailAndPassword,
+            signOut,
+            onAuthStateChanged
+        } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+        import {
+            getFirestore,
+            doc,
+            setDoc,
+            getDoc,
+            updateDoc,
+            arrayUnion
+        } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+
+        //replace with projects cofigs n firebase
+        const firebaseConfig = {
+    apiKey: "YOUR-API-KEY",
+    authDomain: "YOUR-PROJECT.firebaseapp.com",
+    projectId: "YOUR-PROJECT-ID",
+    storageBucket: "YOUR-PROJECT.appspot.com",
+    messagingSenderId: "SENDER-ID",
+    appId: "APP-ID"
+  };
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // ✨ Sign Up
+        document.getElementById('signup').addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                await createUserWithEmailAndPassword(auth, email, password);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Welcome!',
+                    text: `Your account has been created successfully, ${email}.`,
+                    confirmButtonColor: '#4CAF50',
+                    confirmButtonText: 'Continue 🌿'
+                });
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Signup Failed',
+                    text: error.message,
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'Try Again'
+                });
+            }
+        });
+
+        // ✨ Login
+        document.getElementById('login').addEventListener('click', async () => {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                await signInWithEmailAndPassword(auth, email, password);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Welcome back!',
+                    text: `You are now logged in as ${email}.`,
+                    confirmButtonColor: '#4CAF50',
+                    confirmButtonText: 'Awesome 🌸'
+                }).then(() => {
+                    // Redirect after user clicks the confirmation
+                    window.location.href = "index.html";
+                });
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Failed',
+                    text: error.message,
+                    confirmButtonColor: '#d33',
+                    confirmButtonText: 'Try Again'
+                });
+            }
+        });
+
+        // 🔄 Listen for login state changes and cart sync
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                console.log(`User logged in: ${user.email}`);
+
+                // Try to load user's saved cart from Firestore
+                const userCartRef = doc(db, "carts", user.uid);
+                const userCartSnap = await getDoc(userCartRef);
+
+                if (userCartSnap.exists()) {
+                    const savedCart = userCartSnap.data().items || [];
+                    localStorage.setItem("cart", JSON.stringify(savedCart));
+                    console.log("Cart restored from Firestore:", savedCart);
+                }
+            } else {
+                console.log("User is logged out.");
+            }
+        });
+
+    </script>
+4.add sweetalert or a warmer user interface 
+Add this just before your closing </body> tag:
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
