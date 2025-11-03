@@ -688,6 +688,79 @@
         </script>
 
 
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  // ✅ Load cart items from localStorage
+  const checkoutBody = document.getElementById("checkout-body");
+  const subtotalElem = document.getElementById("checkout-subtotal");
+  const totalElem = document.getElementById("checkout-total");
+
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let subtotal = 0;
+
+  cart.forEach(item => {
+    const total = item.price * item.quantity;
+    subtotal += total;
+
+    const row = `
+      <tr>
+        <td><img src="${item.image}" width="60" /></td>
+        <td>${item.name}</td>
+        <td>KES ${item.price}</td>
+        <td>${item.quantity}</td>
+        <td>KES ${total}</td>
+      </tr>
+    `;
+    checkoutBody.insertAdjacentHTML("beforeend", row);
+  });
+
+  subtotalElem.textContent = `KES ${subtotal}`;
+  totalElem.textContent = `KES ${subtotal}`;
+
+  // ✅ Handle Place Order
+  document.getElementById("place-order").addEventListener("click", async () => {
+    const firstName = document.querySelector('input[placeholder="First Name"]')?.value.trim();
+    const lastName = document.querySelector('input[placeholder="Last Name"]')?.value.trim();
+    const phone = document.querySelector('input[type="tel"]').value.trim();
+    const email = document.querySelector('input[type="email"]').value.trim();
+    const city = document.querySelector('input[placeholder="e.g Kikuyu, Ngong, Karen"]').value.trim();
+
+    if (!phone || !email) {
+      alert("Please enter your phone number and email address.");
+      return;
+    }
+
+    const orderData = {
+      name: `${firstName} ${lastName}`,
+      phone,
+      email,
+      address: city,
+      cartItems: cart,
+      totalAmount: subtotal
+    };
+
+    try {
+      const res = await fetch("/api/stkpush", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderData),
+      });
+
+      const data = await res.json();
+      if (data.ResponseDescription) {
+        alert("M-Pesa STK Push sent! Check your phone to complete payment.");
+      } else {
+        alert("Something went wrong: " + (data.errorMessage || "Unknown error"));
+      }
+    } catch (err) {
+      console.error("STK Error:", err);
+      alert("Failed to connect to server. Please try again.");
+    }
+  });
+});
+</script>
+
+
 </body>
 
 </html>
