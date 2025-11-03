@@ -62,7 +62,7 @@ export default async function handler(req, res) {
           PartyA: phone.startsWith("254") ? phone : phone.replace(/^0/, "254"),
           PartyB: shortcode,
           PhoneNumber: phone.startsWith("254") ? phone : phone.replace(/^0/, "254"),
-          CallBackURL: "https://webhook.site/your-test-callback-url", // for now, we'll test with webhook.site
+          CallBackURL: "https://bohemianintegrations.vercel.app/api/mpesaCallback"
           AccountReference: "BohemianOrder",
           TransactionDesc: "Bohemian Integrations Order Payment",
         }),
