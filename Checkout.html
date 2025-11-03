@@ -758,92 +758,58 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
-<!-- SweetAlert2 CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const placeOrderBtn = document.getElementById("placeOrderBtn");
+document.getElementById("placeOrderBtn").addEventListener("click", async () => {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const address = document.getElementById("address").value.trim();
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-  placeOrderBtn.addEventListener("click", async () => {
-    const name = document.querySelector('input[placeholder="First Name"]')?.value.trim() + " " +
-                 document.querySelector('input[placeholder="Last Name"]')?.value.trim();
-    const email = document.querySelector('input[type="email"]')?.value.trim();
-    const phone = document.querySelector('input[type="tel"]')?.value.trim();
-    const city = document.querySelector('input[placeholder="e.g Kikuyu, Ngong, Karen"]')?.value.trim();
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
-    const totalAmount = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  if (!name || !email || !phone || !address || cart.length === 0) {
+    return Swal.fire("Missing Info", "Please fill all fields and add items to your cart.", "warning");
+  }
 
-    // 🔍 Validation
-    if (!name || !email || !phone || !city || cart.length === 0) {
-      Swal.fire({
-        icon: "warning",
-        title: "Incomplete Information 😕",
-        text: "Please fill in all required fields and ensure your cart isn't empty.",
-        confirmButtonColor: "#16a34a",
-      });
-      return;
-    }
+  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
-    // 🌀 Loading animation while sending
-    Swal.fire({
-      title: "Placing Your Order...",
-      html: "Please wait while we prepare your invoice 💚",
-      allowOutsideClick: false,
-      didOpen: () => Swal.showLoading(),
+  try {
+    const res = await fetch("/api/createOrder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, phone, address, items: cart, total }),
     });
 
-    try {
-      // 📦 Send order to backend API
-      const res = await fetch("/api/placeOrder", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-          address: city,
-          cart,
-          totalAmount,
-        }),
-      });
+    const data = await res.json();
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.message || "Failed to place order.");
-      }
-
-      // 🎉 Success popup with animations
+    if (data.success) {
+      // 🎉 SweetAlert: Order Success
       Swal.fire({
-        title: "Order Placed Successfully 🎉🎊",
-        html: `
-          <p>Hi <b>${name}</b>, your order has been received!</p>
-          <p>Kindly proceed to payment 💸</p>
-          <p>Thank you for shopping with <b>Bohemian Integrations</b> 💚🤗</p>
-        `,
+        title: "Order Placed Successfully 🎉",
+        text: "Thank you for your order! Your invoice has been sent via email.",
         icon: "success",
+        timer: 5000,
         showConfirmButton: false,
-        timer: 6000,
-        timerProgressBar: true,
-        didOpen: () => {
-          const popup = Swal.getPopup();
-          popup.style.animation = "fadeInUp 0.8s ease";
-        }
+        willClose: () => {
+          // 💸 After 5 seconds, show next popup
+          Swal.fire({
+            title: "Proceed to Payment 💸",
+            text: "You can now complete your payment via M-Pesa or Airtel Money.",
+            icon: "info",
+            confirmButtonText: "Okay",
+          });
+        },
       });
 
-      // 🧹 Optional: clear cart after successful order
       localStorage.removeItem("cart");
-    } catch (error) {
-      console.error("Order Error:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Something Went Wrong 😞",
-        text: error.message || "Please try again later.",
-        confirmButtonColor: "#16a34a",
-      });
+    } else {
+      Swal.fire("Error", "Something went wrong while placing your order.", "error");
     }
-  });
+  } catch (err) {
+    Swal.fire("Error", "Failed to connect to the server.", "error");
+    console.error(err);
+  }
 });
 </script>
 
@@ -852,5 +818,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 </html>
+
 
 
