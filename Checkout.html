@@ -658,43 +658,55 @@
 
 <script>
 document.getElementById("placeOrderBtn").addEventListener("click", async () => {
-  // Step 1: Show "Order Placed Successfully 🎉🎊"
-  Swal.fire({
-    title: "Order Placed Successfully 🎉🎊",
-    text: "Your order has been recorded successfully!",
-    icon: "success",
-    showConfirmButton: false,
-    timer: 3000,
-    background: "#f0fff4",
-    color: "#14532d",
-    didOpen: () => {
-      Swal.getPopup().classList.add("animate__animated", "animate__fadeIn");
-    },
-    willClose: () => {
-      Swal.getPopup().classList.add("animate__animated", "animate__fadeOut");
+  // gather details - adjust selectors if your fields differ
+  const firstName = document.querySelector('input[placeholder="First Name"]')?.value || document.querySelectorAll('input[type="text"]')[0]?.value || "";
+  const lastName = document.querySelectorAll('input[type="text"]')[1]?.value || "";
+  const name = (firstName + " " + lastName).trim();
+  const email = document.querySelector('input[type="email"]')?.value || "";
+  const phone = document.querySelector('input[type="tel"]')?.value || "";
+  const address = document.querySelector('input[placeholder="e.g Kikuyu, Ngong, Karen"]')?.value || document.querySelector('input[placeholder="Town/City"]')?.value || "";
+
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  if (!name || !email || !phone || cart.length === 0) {
+    return Swal.fire({ icon: "warning", title: "Missing info", text: "Please fill required fields and ensure cart isn't empty." });
+  }
+
+  // compute totals
+  const subtotal = cart.reduce((s, it) => s + (Number(it.price)||0) * (Number(it.quantity||it.qty)||1), 0);
+  const shipping = 0;
+  const total = subtotal + shipping;
+
+  // show loading popup while backend processes
+  Swal.fire({ title: "Placing Your Order...", html: "Please wait a moment 💚", allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
+  try {
+    const resp = await fetch("/api/placeOrder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, phone, address, cart, subtotal, shipping, total })
+    });
+    const data = await resp.json();
+    Swal.close();
+
+    if (data.success) {
+      // success popups chain
+      await Swal.fire({ title: "Order Placed Successfully 🎉🎊", icon: "success", showConfirmButton: false, timer: 5000 });
+      await Swal.fire({ title: "Kindly Proceed to Payment 💚🤗", icon: "info", showConfirmButton: false, timer: 5000 });
+      // clear cart (optional)
+      localStorage.removeItem("cart");
+      // optionally enable Proceed to Payment button if disabled
+      // document.getElementById("procedPaymentBtn").disabled = false;
+      return;
+    } else {
+      throw new Error(data.message || "Unknown error");
     }
-  }).then(() => {
-    // Step 2: After first popup fades out, show "Proceed to Payment 💚🤗"
-    setTimeout(() => {
-      Swal.fire({
-        title: "Kindly Proceed to Payment 💚🤗",
-        text: "Thank you for shopping with Bohemian Integrations 🌿",
-        icon: "info",
-        showConfirmButton: false,
-        timer: 4000,
-        background: "#ecfdf5",
-        color: "#064e3b",
-        didOpen: () => {
-          Swal.getPopup().classList.add("animate__animated", "animate__fadeIn");
-        },
-        willClose: () => {
-          Swal.getPopup().classList.add("animate__animated", "animate__fadeOut");
-        }
-      });
-    }, 200);
-  });
+  } catch (err) {
+    console.error(err);
+    Swal.fire({ icon: "error", title: "Order failed", text: err.message || "Please try again" });
+  }
 });
 </script>
+
 
 </body>
 
