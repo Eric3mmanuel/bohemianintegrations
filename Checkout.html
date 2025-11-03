@@ -758,6 +758,92 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 </script>
 
+<!-- SweetAlert2 CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const placeBtn = document.getElementById("place-order"); // your existing button
+
+  placeBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
+    // Collect only the form fields (you already have cart localStorage and totals in place)
+    const firstName = document.querySelector('input[placeholder="First Name"]')?.value?.trim() || '';
+    const lastName = document.querySelector('input[placeholder="Last Name"]')?.value?.trim() || '';
+    const phone = document.querySelector('input[type="tel"]')?.value?.trim() || '';
+    const email = document.querySelector('input[type="email"]')?.value?.trim() || '';
+    const address = document.querySelector('input[placeholder="e.g Kikuyu, Ngong, Karen"]')?.value?.trim() || '';
+
+    if (!firstName || !lastName || !phone || !email) {
+      Swal.fire({ icon: 'warning', title: 'Please fill all required details', timer: 2000, showConfirmButton: false });
+      return;
+    }
+
+    // load cart snapshot - you already maintain this in localStorage
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const subtotal = Number(localStorage.getItem('cartSubtotal') || cart.reduce((s,i)=> s + (i.price * i.quantity), 0));
+    const shipping = Number(localStorage.getItem('cartShipping') || 0);
+    const total = subtotal + shipping;
+
+    const payload = {
+      customer: { name: `${firstName} ${lastName}`, phone, email, address },
+      items: cart,
+      subtotal,
+      shipping,
+      total
+    };
+
+    // Show loading
+    Swal.fire({
+      title: 'Placing your order…',
+      html: 'Preparing invoice and sending to your email & WhatsApp',
+      allowOutsideClick: false,
+      didOpen: () => { Swal.showLoading(); }
+    });
+
+    try {
+      const res = await fetch('/api/createOrder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        Swal.close();
+        Swal.fire({ icon: 'error', title: 'Order failed', text: data.error || 'Unable to place order' });
+        return;
+      }
+
+      // Success popup with confetti-like effect using SweetAlert2 and a simple CSS animation
+      Swal.fire({
+        title: 'Order Placed Successfully 🎉',
+        html: 'Kindly Proceed to Payment<br><small>Thank you for shopping with us 💚🤗</small>',
+        icon: 'success',
+        showConfirmButton: false,
+        timer: 5500,
+        willOpen: () => {
+          // optional: small confetti-like dots (CSS) — simple approach
+          const popup = Swal.getHtmlContainer();
+          // you can add extra flair here if you like
+        }
+      });
+
+      // optionally save last order id for follow-up
+      localStorage.setItem('bi_last_order', JSON.stringify({ orderId: data.orderId }));
+
+      // After success, you expect user to click Proceed to Payment themselves
+      // (we don't auto-trigger payment here)
+    } catch (err) {
+      Swal.close();
+      console.error(err);
+      Swal.fire({ icon: 'error', title: 'Network error', text: 'Please try again' });
+    }
+  });
+});
+</script>
+
 </body>
 
 
