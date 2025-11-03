@@ -1,46 +1,51 @@
-// /api/placeOrder.js
-import nodemailer from "nodemailer";
+// /api/createOrder.js
+import sgMail from "@sendgrid/mail";
+import PDFDocument from "pdfkit";
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
-  }
+  if (req.method !== "POST")
+    return res.status(405).json({ error: "Method not allowed" });
 
-  const { name, email, phone, address, cartItems, totalAmount } = req.body;
+  const { name, email, phone, address, items, total } = req.body;
 
-  if (!name || !email || !phone || !cartItems || !totalAmount) {
-    return res.status(400).json({ message: "Missing required fields" });
-  }
-
-  // 🧾 Format order summary
-  const orderSummary = cartItems
-    .map(
-      (item, i) =>
-        `${i + 1}. ${item.name} x${item.quantity} — KES ${item.price * item.quantity}`
-    )
-    .join("\n");
-
-  const messageText = `🌿 *Bohemian Integrations Order* 🌿
-  
-👤 Name: ${name}
-📧 Email: ${email}
-📱 Phone: ${phone}
-🏡 Address: ${address}
-
-🛒 *Items Ordered:*
-${orderSummary}
-
-💰 *Total:* KES ${totalAmount}
-
-Thank you for shopping with us 💚
-— Bohemian Integrations Team`;
+  if (!name || !email || !phone || !address || !items || !total)
+    return res.status(400).json({ error: "Missing fields" });
 
   try {
-    // ✅ 1. Send WhatsApp messages (to customer & you)
-    const whatsappURL = `https://graph.facebook.com/v19.0/${process.env.WHATSAPP_PHONE_ID}/messages`;
+    // Initialize SendGrid
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-    const sendWhatsApp = async (to) => {
-      await fetch(whatsappURL, {
+    // --- Generate PDF Invoice ---
+    const doc = new PDFDocument();
+    const chunks = [];
+    doc.on("data", (chunk) => chunks.push(chunk));
+    doc.on("end", async () => {
+      const pdfBuffer = Buffer.concat(chunks);
+
+      // --- Send Email with PDF Invoice ---
+      const msg = {
+        to: email,
+        from: process.env.SENDER_EMAIL,
+        subject: "Your Order Invoice – Bohemian Integrations",
+        text: `Hello ${name}, thank you for your order! Find your invoice attached.`,
+        attachments: [
+          {
+            content: pdfBuffer.toString("base64"),
+            filename: "invoice.pdf",
+            type: "application/pdf",
+            disposition: "attachment",
+          },
+        ],
+      };
+
+      await sgMail.send(msg);
+
+      // --- Send WhatsApp Notification ---
+      const message = `🪶 *Bohemian Integrations* 🪶\n\nHello ${name}, thank you for your order!\n\n📦 Items: ${items
+        .map((i) => `${i.name} x${i.qty}`)
+        .join(", ")}\n💰 Total: ${total}\n📍 Address: ${address}\n\nWe'll process your order shortly!`;
+
+      await fetch(`https://graph.facebook.com/v17.0/${process.env.WHATSAPP_PHONE_ID}/messages`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${process.env.WHATSAPP_TOKEN}`,
@@ -48,39 +53,33 @@ Thank you for shopping with us 💚
         },
         body: JSON.stringify({
           messaging_product: "whatsapp",
-          to,
+          to: phone,
           type: "text",
-          text: { body: messageText },
+          text: { body: message },
         }),
       });
-    };
 
-    await Promise.all([
-      sendWhatsApp(phone), // to customer
-      sendWhatsApp(process.env.OWNER_WHATSAPP_NUMBER), // to you
-    ]);
-
-    // ✅ 2. Send email using Nodemailer
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.BOHEMIAN_EMAIL,
-        pass: process.env.BOHEMIAN_EMAIL_PASS,
-      },
+      // ✅ Return success
+      return res.status(200).json({ success: true });
     });
 
-    const mailOptions = {
-      from: `"Bohemian Integrations" <${process.env.BOHEMIAN_EMAIL}>`,
-      to: `${email}, ${process.env.BOHEMIAN_EMAIL}`,
-      subject: "Bohemian Integrations Order Confirmation",
-      text: messageText,
-    };
-
-    await transporter.sendMail(mailOptions);
-
-    res.status(200).json({ success: true, message: "Order placed successfully" });
-  } catch (error) {
-    console.error("Order error:", error);
-    res.status(500).json({ message: "Failed to process order", error: error.message });
+    // Build PDF
+    doc.fontSize(20).text("Bohemian Integrations", { align: "center" });
+    doc.moveDown();
+    doc.fontSize(14).text(`Invoice for: ${name}`);
+    doc.text(`Email: ${email}`);
+    doc.text(`Phone: ${phone}`);
+    doc.text(`Address: ${address}`);
+    doc.moveDown();
+    doc.text("Items:");
+    items.forEach((item) => {
+      doc.text(`- ${item.name} x${item.qty}`);
+    });
+    doc.moveDown();
+    doc.fontSize(16).text(`Total: ${total}`);
+    doc.end();
+  } catch (err) {
+    console.error("Error:", err);
+    res.status(500).json({ error: "Internal server error" });
   }
 }
