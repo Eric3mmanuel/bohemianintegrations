@@ -690,56 +690,39 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  // ✅ Load cart items from localStorage
-  const checkoutBody = document.getElementById("checkout-body");
-  const subtotalElem = document.getElementById("checkout-subtotal");
-  const totalElem = document.getElementById("checkout-total");
-
+  // ✅ Keep your existing cart display logic as-is
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  let subtotal = 0;
+  let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  cart.forEach(item => {
-    const total = item.price * item.quantity;
-    subtotal += total;
+  // ✅ Form submission for STK Push
+  const placeOrderBtn = document.getElementById("place-order");
+  placeOrderBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
 
-    const row = `
-      <tr>
-        <td><img src="${item.image}" width="60" /></td>
-        <td>${item.name}</td>
-        <td>KES ${item.price}</td>
-        <td>${item.quantity}</td>
-        <td>KES ${total}</td>
-      </tr>
-    `;
-    checkoutBody.insertAdjacentHTML("beforeend", row);
-  });
-
-  subtotalElem.textContent = `KES ${subtotal}`;
-  totalElem.textContent = `KES ${subtotal}`;
-
-  // ✅ Handle Place Order
-  document.getElementById("place-order").addEventListener("click", async () => {
     const firstName = document.querySelector('input[placeholder="First Name"]')?.value.trim();
     const lastName = document.querySelector('input[placeholder="Last Name"]')?.value.trim();
-    const phone = document.querySelector('input[type="tel"]').value.trim();
-    const email = document.querySelector('input[type="email"]').value.trim();
-    const city = document.querySelector('input[placeholder="e.g Kikuyu, Ngong, Karen"]').value.trim();
+    const phone = document.querySelector('input[type="tel"]')?.value.trim();
+    const email = document.querySelector('input[type="email"]')?.value.trim();
+    const address = document.querySelector('input[placeholder="e.g Kikuyu, Ngong, Karen"]')?.value.trim();
 
-    if (!phone || !email) {
-      alert("Please enter your phone number and email address.");
+    // ✅ Basic validation
+    if (!firstName || !lastName || !phone || !email || !address) {
+      alert("Please fill in all required fields.");
       return;
     }
 
+    // ✅ Combine into order data
     const orderData = {
       name: `${firstName} ${lastName}`,
       phone,
       email,
-      address: city,
+      address,
       cartItems: cart,
-      totalAmount: subtotal
+      totalAmount: subtotal,
     };
 
     try {
+      // ✅ Send data to your Vercel backend for M-Pesa STK Push
       const res = await fetch("/api/stkpush", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -747,19 +730,20 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const data = await res.json();
-      if (data.ResponseDescription) {
-        alert("M-Pesa STK Push sent! Check your phone to complete payment.");
+      console.log("M-PESA RESPONSE:", data);
+
+      if (data.ResponseDescription || data.CustomerMessage) {
+        alert("✅ M-Pesa STK Push sent! Please check your phone to complete payment.");
       } else {
-        alert("Something went wrong: " + (data.errorMessage || "Unknown error"));
+        alert("⚠️ Something went wrong: " + (data.errorMessage || "Unknown error"));
       }
     } catch (err) {
-      console.error("STK Error:", err);
-      alert("Failed to connect to server. Please try again.");
+      console.error("STK Push Error:", err);
+      alert("🚫 Failed to connect to payment server. Please try again.");
     }
   });
 });
 </script>
-
 
 </body>
 
