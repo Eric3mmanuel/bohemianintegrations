@@ -723,7 +723,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       // ✅ Send data to your Vercel backend for M-Pesa STK Push
-      const res = await fetch("/api/stkpush", {
+      const res = await fetch("https://bohemian integrations.vercel.app/api/stkpush", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(orderData),
