@@ -59,6 +59,8 @@
             animation: cartWiggle 0.8s ease-in-out;
         }
     </style>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 </head>
 
 <body>
@@ -650,169 +652,49 @@
         </script>
 
 
-        <!--To send order details to WhatsApp and Email-->
-
-        <script>
-            document.getElementById('place-order').addEventListener('click', () => {
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
-                if (cart.length === 0) {
-                    alert('🛒 Your cart is empty.');
-                    return;
-                }
-
-                // 🧾 Collect form details
-                const name = document.querySelector('input[type="text"]').value || "Customer";
-                const email = document.querySelector('input[type="email"]').value || "N/A";
-                const phone = document.querySelector('input[type="tel"]').value || "N/A";
-
-                // 🧮 Build order summary
-                let orderText = `🌿 *New Order from Bohemian Integrations Website*\n\n`;
-                orderText += `👤 Name: ${name}\n📧 Email: ${email}\n📞 Phone: ${phone}\n\n🛍️ *Items Ordered:*\n`;
-
-                let subtotal = 0;
-                cart.forEach(item => {
-                    const itemTotal = item.price * item.quantity;
-                    subtotal += itemTotal;
-                    orderText += `- ${item.name} × ${item.quantity} = KES ${itemTotal.toFixed(2)}\n`;
-                });
-
-                const shipping = 0; // adjust if needed
-                const total = subtotal + shipping;
-
-                orderText += `\n💰 Subtotal: KES ${subtotal.toFixed(2)}\n🚚 Shipping: KES ${shipping.toFixed(2)}\n`;
-                orderText += `🧾 *Total: KES ${total.toFixed(2)}*\n\n🙏 Thank you for shopping with Bohemian Integrations 🌿`;
-
-                // 🔗 Send to WhatsApp
-                const phoneNumber = "254784587728"; // your WhatsApp number without "+"
-                const encodedMessage = encodeURIComponent(orderText);
-                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-                window.open(whatsappUrl, "_blank");
-
-                /* 💌 Also send via email using mailto:
-                const emailBody = encodeURIComponent(orderText);
-                const emailSubject = encodeURIComponent("New Order from Bohemian Integrations");
-                window.location.href = `mailto:bohemianintegrations@gmail.com?subject=${emailSubject}&body=${emailBody}`;
-    
-                */
-
-                // 🧹 Clear cart after sending
-                localStorage.removeItem('cart');
-            });
-        </script>
-
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  // ✅ Keep your existing cart display logic as-is
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-  let subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-
-  // ✅ Form submission for STK Push
-  const placeOrderBtn = document.getElementById("place-order");
-  placeOrderBtn.addEventListener("click", async (e) => {
-    e.preventDefault();
-
-    const firstName = document.querySelector('input[placeholder="First Name"]')?.value.trim();
-    const lastName = document.querySelector('input[placeholder="Last Name"]')?.value.trim();
-    const phone = document.querySelector('input[type="tel"]')?.value.trim();
-    const email = document.querySelector('input[type="email"]')?.value.trim();
-    const address = document.querySelector('input[placeholder="e.g Kikuyu, Ngong, Karen"]')?.value.trim();
-
-    // ✅ Basic validation
-    if (!firstName || !lastName || !phone || !email || !address) {
-      alert("Please fill in all required fields.");
-      return;
-    }
-
-    // ✅ Combine into order data
-    const orderData = {
-      name: `${firstName} ${lastName}`,
-      phone,
-      email,
-      address,
-      cartItems: cart,
-      totalAmount: subtotal,
-    };
-
-    try {
-      // ✅ Send data to your Vercel backend for M-Pesa STK Push
-      const res = await fetch("https://bohemianintegrations.vercel.app/api/stkpush", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderData),
-      });
-
-      const data = await res.json();
-      console.log("M-PESA RESPONSE:", data);
-
-      if (data.ResponseDescription || data.CustomerMessage) {
-        alert("✅ M-Pesa STK Push sent! Please check your phone to complete payment.");
-      } else {
-        alert("⚠️ Something went wrong: " + (data.errorMessage || "Unknown error"));
-      }
-    } catch (err) {
-      console.error("STK Push Error:", err);
-      alert("🚫 Failed to connect to payment server. Please try again.");
-    }
-  });
-});
-</script>
-
+        
+<!-- SweetAlert2 CDN -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
 document.getElementById("placeOrderBtn").addEventListener("click", async () => {
-  const name = document.getElementById("name").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-  const address = document.getElementById("address").value.trim();
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-  if (!name || !email || !phone || !address || cart.length === 0) {
-    return Swal.fire("Missing Info", "Please fill all fields and add items to your cart.", "warning");
-  }
-
-  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-
-  try {
-    const res = await fetch("/api/createOrder", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, phone, address, items: cart, total }),
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      // 🎉 SweetAlert: Order Success
-      Swal.fire({
-        title: "Order Placed Successfully 🎉",
-        text: "Thank you for your order! Your invoice has been sent via email.",
-        icon: "success",
-        timer: 5000,
-        showConfirmButton: false,
-        willClose: () => {
-          // 💸 After 5 seconds, show next popup
-          Swal.fire({
-            title: "Proceed to Payment 💸",
-            text: "You can now complete your payment via M-Pesa or Airtel Money.",
-            icon: "info",
-            confirmButtonText: "Okay",
-          });
-        },
-      });
-
-      localStorage.removeItem("cart");
-    } else {
-      Swal.fire("Error", "Something went wrong while placing your order.", "error");
+  // Step 1: Show "Order Placed Successfully 🎉🎊"
+  Swal.fire({
+    title: "Order Placed Successfully 🎉🎊",
+    text: "Your order has been recorded successfully!",
+    icon: "success",
+    showConfirmButton: false,
+    timer: 3000,
+    background: "#f0fff4",
+    color: "#14532d",
+    didOpen: () => {
+      Swal.getPopup().classList.add("animate__animated", "animate__fadeIn");
+    },
+    willClose: () => {
+      Swal.getPopup().classList.add("animate__animated", "animate__fadeOut");
     }
-  } catch (err) {
-    Swal.fire("Error", "Failed to connect to the server.", "error");
-    console.error(err);
-  }
+  }).then(() => {
+    // Step 2: After first popup fades out, show "Proceed to Payment 💚🤗"
+    setTimeout(() => {
+      Swal.fire({
+        title: "Kindly Proceed to Payment 💚🤗",
+        text: "Thank you for shopping with Bohemian Integrations 🌿",
+        icon: "info",
+        showConfirmButton: false,
+        timer: 4000,
+        background: "#ecfdf5",
+        color: "#064e3b",
+        didOpen: () => {
+          Swal.getPopup().classList.add("animate__animated", "animate__fadeIn");
+        },
+        willClose: () => {
+          Swal.getPopup().classList.add("animate__animated", "animate__fadeOut");
+        }
+      });
+    }, 200);
+  });
 });
 </script>
-
 
 </body>
 
