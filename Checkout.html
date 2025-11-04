@@ -658,8 +658,19 @@
 
 
 
-  <!-- SweetAlert2 -->
+ <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- EmailJS CDN -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script type="text/javascript">
+  (function(){
+    emailjs.init("YOUR_PUBLIC_KEY"); // Replace with your EmailJS public key
+  })();
+</script>
+
+<!-- Canvas Confetti CDN -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
 document.getElementById("place-order").addEventListener("click", async () => {
@@ -679,6 +690,8 @@ document.getElementById("place-order").addEventListener("click", async () => {
             icon: "warning",
             title: "Missing Information",
             text: "Please fill all required fields and ensure your cart isn't empty.",
+            background: "#fff",
+            color: "#333",
             showClass: { popup: 'animate__animated animate__fadeInDown' },
             hideClass: { popup: 'animate__animated animate__fadeOutUp' }
         });
@@ -706,43 +719,48 @@ document.getElementById("place-order").addEventListener("click", async () => {
             html: "Generating invoice & sending emails 💚",
             allowOutsideClick: false,
             didOpen: () => Swal.showLoading(),
+            background: "#f0fdf4",
+            color: "#065f46",
             showClass: { popup: 'animate__animated animate__fadeIn' },
             hideClass: { popup: 'animate__animated animate__fadeOut' }
         });
 
-        // Send order to your server to email both you and client
-        const response = await fetch("/api/sendInvoice", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                name, email, phone, address, cart, subtotal, shipping, total, orderText
-            })
-        });
+        // Send email via EmailJS
+        await emailjs.send(
+            "YOUR_SERVICE_ID",      // Replace with your EmailJS Service ID
+            "YOUR_TEMPLATE_ID",     // Replace with your EmailJS Template ID
+            {
+                client_name: name,
+                client_email: email,
+                business_email: "bohemianintegrations@gmail.com",  // Replace with your business Gmail
+                order_details: orderText
+            }
+        );
 
-        const data = await response.json();
         Swal.close();
 
-        if (!response.ok || !data.success) {
-            return Swal.fire({
-                icon: "error",
-                title: "Order Failed",
-                text: data.message || "Please try again.",
-                showClass: { popup: 'animate__animated animate__shakeX' },
-                hideClass: { popup: 'animate__animated animate__fadeOut' }
-            });
-        }
-
-        // --- Success Popups ---
+        // --- Premium Success Popup with Confetti ---
 
         // Popup 1: Order placed successfully
         await Swal.fire({
             title: "Order Placed Successfully 🎉",
             html: "Thank you for shopping with Bohemian Integrations! 💚",
             icon: "success",
+            background: "#ecfdf5",
+            color: "#065f46",
             timer: 5000,
             showConfirmButton: false,
             showClass: { popup: 'animate__animated animate__fadeInDown' },
-            hideClass: { popup: 'animate__animated animate__fadeOutUp' }
+            hideClass: { popup: 'animate__animated animate__fadeOutUp' },
+            didOpen: () => {
+                // Confetti effect
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#22c55e', '#10b981', '#34d399']
+                });
+            }
         });
 
         // Popup 2: Proceed to payment
@@ -750,7 +768,9 @@ document.getElementById("place-order").addEventListener("click", async () => {
             title: "Kindly Proceed to Payment 💚",
             html: "When ready, complete payment via your preferred method. We wish you the best! ✨",
             icon: "info",
-            timer: 5000,
+            background: "#f0fdf4",
+            color: "#065f46",
+            timer: 6000,
             showConfirmButton: true,
             confirmButtonText: "Okay, proceed",
             showClass: { popup: 'animate__animated animate__fadeInDown' },
@@ -766,7 +786,9 @@ document.getElementById("place-order").addEventListener("click", async () => {
         Swal.fire({
             icon: "error",
             title: "Order Error",
-            text: err.message || "Something went wrong. Please try again.",
+            text: err.text || "Something went wrong. Please try again.",
+            background: "#fff1f2",
+            color: "#b91c1c",
             showClass: { popup: 'animate__animated animate__shakeX' },
             hideClass: { popup: 'animate__animated animate__fadeOut' }
         });
@@ -778,6 +800,7 @@ document.getElementById("place-order").addEventListener("click", async () => {
 
 
 </html>
+
 
 
 
