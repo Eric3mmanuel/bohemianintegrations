@@ -658,87 +658,81 @@
 
 
 
-    <!--To send order details to WhatsApp with animated popups-->
+  <!-- SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
-document.getElementById('place-order').addEventListener('click', () => {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    if (cart.length === 0) {
-        alert('🛒 Your cart is empty.');
-        return;
-    }
+document.getElementById("placeOrderBtn").addEventListener("click", async () => {
+  const first = document.querySelectorAll('input[type="text"]')[0]?.value?.trim() || "";
+  const last = document.querySelectorAll('input[type="text"]')[1]?.value?.trim() || "";
+  const name = (first + " " + last).trim();
+  const email = document.querySelector('input[type="email"]')?.value?.trim() || "";
+  const phone = document.querySelector('input[type="tel"]')?.value?.trim() || "";
+  const address = document.querySelector('input[placeholder*="Town"]')?.value?.trim() || "";
 
-    // Collect form details
-    const name = document.querySelector('input[type="text"]').value || "Customer";
-    const email = document.querySelector('input[type="email"]').value || "N/A";
-    const phone = document.querySelector('input[type="tel"]').value || "N/A";
+  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+  if (!name || !email || !phone || cart.length === 0) {
+    return Swal.fire({
+      icon: "warning",
+      title: "Missing info",
+      text: "Please fill required fields and ensure your cart isn't empty."
+    });
+  }
 
-    // Build order summary
-    let orderText = `🌿 *New Order from Bohemian Integrations Website*\n\n`;
-    orderText += `👤 Name: ${name}\n📧 Email: ${email}\n📞 Phone: ${phone}\n\n🛍️ *Items Ordered:*\n`;
+  const subtotal = cart.reduce((s, i) => s + (Number(i.price)||0) * (Number(i.quantity||i.qty)||1), 0);
+  const shipping = 0;
+  const total = subtotal + shipping;
 
-    let subtotal = 0;
-    cart.forEach(item => {
-        const itemTotal = item.price * item.quantity;
-        subtotal += itemTotal;
-        orderText += `- ${item.name} × ${item.quantity} = KES ${itemTotal.toFixed(2)}\n`;
+  Swal.fire({ title: "Placing your order...", html: "Preparing invoice & notifications 💚", allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+
+  try {
+    // Send order to your backend
+    const resp = await fetch("/api/placeOrder", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, phone, address, cart, subtotal, shipping, total })
     });
 
-    const shipping = 0;
-    const total = subtotal + shipping;
-    orderText += `\n💰 Subtotal: KES ${subtotal.toFixed(2)}\n🚚 Shipping: KES ${shipping.toFixed(2)}\n`;
-    orderText += `🧾 *Total: KES ${total.toFixed(2)}*\n\n🙏 Thank you for shopping with Bohemian Integrations 🌿`;
+    const data = await resp.json();
+    Swal.close();
 
-    // WhatsApp link
-    const phoneNumber = "254740343513";
-    const encodedMessage = encodeURIComponent(orderText);
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-
-    // Pop-up function with fade in/out
-    function showPopup(message, duration = 5000) {
-        const popup = document.createElement('div');
-        popup.textContent = message;
-        popup.style.position = 'fixed';
-        popup.style.top = '20px';
-        popup.style.right = '20px';
-        popup.style.background = 'white';
-        popup.style.color = 'green';
-        popup.style.padding = '20px 25px';
-        popup.style.border = '2px solid green';
-        popup.style.borderRadius = '10px';
-        popup.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
-        popup.style.fontWeight = 'bold';
-        popup.style.zIndex = 9999;
-        popup.style.fontFamily = "'Open Sans', sans-serif";
-        popup.style.opacity = 0;
-        popup.style.transition = 'opacity 0.5s ease';
-
-        document.body.appendChild(popup);
-
-        // Fade in
-        setTimeout(() => {
-            popup.style.opacity = 1;
-        }, 50);
-
-        // Fade out after duration
-        setTimeout(() => {
-            popup.style.opacity = 0;
-            setTimeout(() => popup.remove(), 500);
-        }, duration);
+    if (!resp.ok || !data.success) {
+      return Swal.fire({ icon: "error", title: "Order failed", text: data.message || "Please try again." });
     }
 
-    // Show first popup
-    showPopup("✅ Your order has been placed", 5000);
+    // Send WhatsApp automatically via your backend
+    await fetch("/api/sendWhatsappInvoice", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name, email, phone, address, cart, subtotal, shipping, total })
+    });
 
-    // Show second popup after 5s and open WhatsApp
-    setTimeout(() => {
-        showPopup("💳 Proceed to payment", 5000);
-        window.open(whatsappUrl, "_blank");
-        // Clear cart
-        localStorage.removeItem('cart');
-        // Update cart count icons immediately
-        const counts = document.querySelectorAll('.cart-count');
-        counts.forEach(c => c.textContent = 0);
-    }, 5000);
+    // Success popups
+    await Swal.fire({
+      title: "Order Placed Successfully 🎉🎊",
+      html: "We've emailed the invoice and sent a WhatsApp confirmation to our team.",
+      icon: "success",
+      showConfirmButton: false,
+      timer: 5000,
+      didOpen: () => Swal.getPopup().classList.add("animate__animated", "animate__fadeIn")
+    });
+
+    await Swal.fire({
+      title: "Kindly Proceed to Payment 💚🤗",
+      html: "When you're ready, click Proceed to Payment to complete via M-Pesa.",
+      icon: "info",
+      showConfirmButton: true,
+      confirmButtonText: "Okay, proceed",
+      didOpen: () => Swal.getPopup().classList.add("animate__animated", "animate__fadeIn")
+    });
+
+    localStorage.removeItem("cart");
+
+  } catch (err) {
+    console.error("Place order error:", err);
+    Swal.close();
+    Swal.fire({ icon: "error", title: "Order Error", text: err.message || "Please try again." });
+  }
 });
 </script>
 
@@ -747,6 +741,7 @@ document.getElementById('place-order').addEventListener('click', () => {
 
 
 </html>
+
 
 
 
