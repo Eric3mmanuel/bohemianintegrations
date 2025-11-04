@@ -659,51 +659,63 @@
 <!-- SweetAlert2 (if not already included) -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 document.getElementById("placeOrderBtn").addEventListener("click", async () => {
-  // collect fields (adapt if you have different order of inputs)
-  const first = document.querySelectorAll('input[type="text"]')[0]?.value?.trim() || "";
-  const last = document.querySelectorAll('input[type="text"]')[1]?.value?.trim() || "";
-  const name = (first + " " + last).trim();
-  const email = document.querySelector('input[type="email"]')?.value?.trim() || "";
-  const phone = document.querySelector('input[type="tel"]')?.value?.trim() || "";
-  const address = document.querySelector('input[placeholder="e.g Kikuyu, Ngong, Karen"]')?.value?.trim() || document.querySelector('input[placeholder="Town/City"]')?.value?.trim() || "";
+  // Collect customer info from your input fields
+  const name = document.querySelector('input[name="name"]').value.trim();
+  const email = document.querySelector('input[name="email"]').value.trim();
+  const phone = document.querySelector('input[name="phone"]').value.trim();
+  const address = document.querySelector('input[name="address"]').value.trim();
 
+  // Get cart from localStorage
   const cart = JSON.parse(localStorage.getItem("cart") || "[]");
   if (!name || !email || !phone || cart.length === 0) {
-    return Swal.fire({ icon: "warning", title: "Missing info", text: "Please fill required fields and ensure your cart isn't empty."});
+    return Swal.fire({
+      icon: "warning",
+      title: "Missing info",
+      text: "Please fill all fields and ensure your cart isn't empty."
+    });
   }
 
-  const subtotal = cart.reduce((s, i) => s + (Number(i.price)||0) * (Number(i.quantity||i.qty)||1), 0);
+  const subtotal = cart.reduce((sum, i) => sum + (Number(i.price) || 0) * (Number(i.quantity) || 1), 0);
   const shipping = 0;
   const total = subtotal + shipping;
 
-  // Loading popup
-  Swal.fire({ title: "Placing your order...", html: "Preparing invoice & notifications 💚", allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+  Swal.fire({
+    title: "Placing your order...",
+    html: "Preparing invoice & notifications 💚",
+    allowOutsideClick: false,
+    didOpen: () => Swal.showLoading()
+  });
 
   try {
-    const resp = await fetch("/api/placeOrder", {
+    const resp = await fetch("/api/createOrder", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, phone, address, cart, subtotal, shipping, total })
+      body: JSON.stringify({
+        customer: { name, email, phone, address },
+        items: cart,
+        subtotal,
+        shipping,
+        total
+      })
     });
 
     const data = await resp.json();
     Swal.close();
 
-    if (!resp.ok || !data.success) {
-      console.error("order error", data);
+    if (!resp.ok || !data.ok) {
       return Swal.fire({ icon: "error", title: "Order failed", text: data.message || "Please try again." });
     }
 
-    // Success popups chain (two popups with fade)
+    // Success popups
     await Swal.fire({
       title: "Order Placed Successfully 🎉🎊",
       html: "We've emailed the invoice and sent a WhatsApp confirmation.",
       icon: "success",
       showConfirmButton: false,
-      timer: 5000,
-      didOpen: () => Swal.getPopup().classList.add("animate__animated", "animate__fadeIn")
+      timer: 5000
     });
 
     await Swal.fire({
@@ -711,18 +723,17 @@ document.getElementById("placeOrderBtn").addEventListener("click", async () => {
       html: "When you're ready, click Proceed to Payment to complete via M-Pesa.",
       icon: "info",
       showConfirmButton: true,
-      confirmButtonText: "Okay, proceed",
-      didOpen: () => Swal.getPopup().classList.add("animate__animated", "animate__fadeIn")
+      confirmButtonText: "Okay, proceed"
     });
 
-    // Clear cart locally (optional)
+    // Optionally enable your payment button
+    document.getElementById("proceedPaymentBtn").disabled = false;
+
+    // Optionally clear cart
     localStorage.removeItem("cart");
 
-    // Optionally enable payment button
-    // document.getElementById("procedPaymentBtn").disabled = false;
-
   } catch (err) {
-    console.error("Place order front error:", err);
+    console.error(err);
     Swal.close();
     Swal.fire({ icon: "error", title: "Order Error", text: err.message || "Please try again." });
   }
