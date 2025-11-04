@@ -658,61 +658,96 @@
 
 
 
-    <!--To send order details to WhatsApp and Email-->
+    <!--To send order details to WhatsApp with animated popups-->
+<script>
+document.getElementById('place-order').addEventListener('click', () => {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cart.length === 0) {
+        alert('🛒 Your cart is empty.');
+        return;
+    }
 
-        <script>
-            document.getElementById('place-order').addEventListener('click', () => {
-                const cart = JSON.parse(localStorage.getItem('cart')) || [];
-                if (cart.length === 0) {
-                    alert('🛒 Your cart is empty.');
-                    return;
-                }
+    // Collect form details
+    const name = document.querySelector('input[type="text"]').value || "Customer";
+    const email = document.querySelector('input[type="email"]').value || "N/A";
+    const phone = document.querySelector('input[type="tel"]').value || "N/A";
 
-                // 🧾 Collect form details
-                const name = document.querySelector('input[type="text"]').value || "Customer";
-                const email = document.querySelector('input[type="email"]').value || "N/A";
-                const phone = document.querySelector('input[type="tel"]').value || "N/A";
+    // Build order summary
+    let orderText = `🌿 *New Order from Bohemian Integrations Website*\n\n`;
+    orderText += `👤 Name: ${name}\n📧 Email: ${email}\n📞 Phone: ${phone}\n\n🛍️ *Items Ordered:*\n`;
 
-                // 🧮 Build order summary
-                let orderText = `🌿 *New Order from Bohemian Integrations Website*\n\n`;
-                orderText += `👤 Name: ${name}\n📧 Email: ${email}\n📞 Phone: ${phone}\n\n🛍️ *Items Ordered:*\n`;
+    let subtotal = 0;
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        orderText += `- ${item.name} × ${item.quantity} = KES ${itemTotal.toFixed(2)}\n`;
+    });
 
-                let subtotal = 0;
-                cart.forEach(item => {
-                    const itemTotal = item.price * item.quantity;
-                    subtotal += itemTotal;
-                    orderText += `- ${item.name} × ${item.quantity} = KES ${itemTotal.toFixed(2)}\n`;
-                });
+    const shipping = 0;
+    const total = subtotal + shipping;
+    orderText += `\n💰 Subtotal: KES ${subtotal.toFixed(2)}\n🚚 Shipping: KES ${shipping.toFixed(2)}\n`;
+    orderText += `🧾 *Total: KES ${total.toFixed(2)}*\n\n🙏 Thank you for shopping with Bohemian Integrations 🌿`;
 
-                const shipping = 0; // adjust if needed
-                const total = subtotal + shipping;
+    // WhatsApp link
+    const phoneNumber = "254740343513";
+    const encodedMessage = encodeURIComponent(orderText);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
 
-                orderText += `\n💰 Subtotal: KES ${subtotal.toFixed(2)}\n🚚 Shipping: KES ${shipping.toFixed(2)}\n`;
-                orderText += `🧾 *Total: KES ${total.toFixed(2)}*\n\n🙏 Thank you for shopping with Bohemian Integrations 🌿`;
+    // Pop-up function with fade in/out
+    function showPopup(message, duration = 5000) {
+        const popup = document.createElement('div');
+        popup.textContent = message;
+        popup.style.position = 'fixed';
+        popup.style.top = '20px';
+        popup.style.right = '20px';
+        popup.style.background = 'white';
+        popup.style.color = 'green';
+        popup.style.padding = '20px 25px';
+        popup.style.border = '2px solid green';
+        popup.style.borderRadius = '10px';
+        popup.style.boxShadow = '0 4px 15px rgba(0,0,0,0.2)';
+        popup.style.fontWeight = 'bold';
+        popup.style.zIndex = 9999;
+        popup.style.fontFamily = "'Open Sans', sans-serif";
+        popup.style.opacity = 0;
+        popup.style.transition = 'opacity 0.5s ease';
 
-                // 🔗 Send to WhatsApp
-                const phoneNumber = "254740343513"; // your WhatsApp number without "+"
-                const encodedMessage = encodeURIComponent(orderText);
-                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-                window.open(whatsappUrl, "_blank");
+        document.body.appendChild(popup);
 
-                /* 💌 Also send via email using mailto:
-                const emailBody = encodeURIComponent(orderText);
-                const emailSubject = encodeURIComponent("New Order from Bohemian Integrations");
-                window.location.href = `mailto:bohemianintegrations@gmail.com?subject=${emailSubject}&body=${emailBody}`;
-    
-                */
+        // Fade in
+        setTimeout(() => {
+            popup.style.opacity = 1;
+        }, 50);
 
-                // 🧹 Clear cart after sending
-                localStorage.removeItem('cart');
-            });
-        </script>
+        // Fade out after duration
+        setTimeout(() => {
+            popup.style.opacity = 0;
+            setTimeout(() => popup.remove(), 500);
+        }, duration);
+    }
+
+    // Show first popup
+    showPopup("✅ Your order has been placed", 5000);
+
+    // Show second popup after 5s and open WhatsApp
+    setTimeout(() => {
+        showPopup("💳 Proceed to payment", 5000);
+        window.open(whatsappUrl, "_blank");
+        // Clear cart
+        localStorage.removeItem('cart');
+        // Update cart count icons immediately
+        const counts = document.querySelectorAll('.cart-count');
+        counts.forEach(c => c.textContent = 0);
+    }, 5000);
+});
+</script>
 
 
 </body>
 
 
 </html>
+
 
 
 
