@@ -662,85 +662,123 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script>
-document.getElementById("placeOrderBtn").addEventListener("click", async () => {
-  const first = document.querySelectorAll('input[type="text"]')[0]?.value?.trim() || "";
-  const last = document.querySelectorAll('input[type="text"]')[1]?.value?.trim() || "";
-  const name = (first + " " + last).trim();
-  const email = document.querySelector('input[type="email"]')?.value?.trim() || "";
-  const phone = document.querySelector('input[type="tel"]')?.value?.trim() || "";
-  const address = document.querySelector('input[placeholder*="Town"]')?.value?.trim() || "";
+document.getElementById("place-order").addEventListener("click", async () => {
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
-  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  if (!name || !email || !phone || cart.length === 0) {
-    return Swal.fire({
-      icon: "warning",
-      title: "Missing info",
-      text: "Please fill required fields and ensure your cart isn't empty."
-    });
-  }
+    // Collect billing details
+    const firstName = document.querySelectorAll('input[type="text"]')[0]?.value?.trim() || "";
+    const lastName = document.querySelectorAll('input[type="text"]')[1]?.value?.trim() || "";
+    const name = (firstName + " " + lastName).trim();
+    const email = document.querySelector('input[type="email"]')?.value?.trim() || "";
+    const phone = document.querySelector('input[type="tel"]')?.value?.trim() || "";
+    const address = document.querySelector('input[placeholder="e.g Kikuyu, Ngong, Karen"]')?.value?.trim() || document.querySelector('input[placeholder="Town/City"]')?.value?.trim() || "";
 
-  const subtotal = cart.reduce((s, i) => s + (Number(i.price)||0) * (Number(i.quantity||i.qty)||1), 0);
-  const shipping = 0;
-  const total = subtotal + shipping;
-
-  Swal.fire({ title: "Placing your order...", html: "Preparing invoice & notifications 💚", allowOutsideClick: false, didOpen: () => Swal.showLoading() });
-
-  try {
-    // Send order to your backend
-    const resp = await fetch("/api/placeOrder", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, phone, address, cart, subtotal, shipping, total })
-    });
-
-    const data = await resp.json();
-    Swal.close();
-
-    if (!resp.ok || !data.success) {
-      return Swal.fire({ icon: "error", title: "Order failed", text: data.message || "Please try again." });
+    // Validation
+    if (!name || !email || !phone || cart.length === 0) {
+        return Swal.fire({
+            icon: "warning",
+            title: "Missing Information",
+            text: "Please fill all required fields and ensure your cart isn't empty.",
+            showClass: { popup: 'animate__animated animate__fadeInDown' },
+            hideClass: { popup: 'animate__animated animate__fadeOutUp' }
+        });
     }
 
-    // Send WhatsApp automatically via your backend
-    await fetch("/api/sendWhatsappInvoice", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, email, phone, address, cart, subtotal, shipping, total })
+    // Build order summary
+    let orderText = `🌿 New Order from Bohemian Integrations Website\n\n`;
+    orderText += `👤 Name: ${name}\n📧 Email: ${email}\n📞 Phone: ${phone}\n🏠 Address: ${address}\n\n🛍️ Items Ordered:\n`;
+
+    let subtotal = 0;
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+        orderText += `- ${item.name} × ${item.quantity} = KES ${itemTotal.toFixed(2)}\n`;
     });
 
-    // Success popups
-    await Swal.fire({
-      title: "Order Placed Successfully 🎉🎊",
-      html: "We've emailed the invoice and sent a WhatsApp confirmation to our team.",
-      icon: "success",
-      showConfirmButton: false,
-      timer: 5000,
-      didOpen: () => Swal.getPopup().classList.add("animate__animated", "animate__fadeIn")
-    });
+    const shipping = 0;
+    const total = subtotal + shipping;
+    orderText += `\n💰 Subtotal: KES ${subtotal.toFixed(2)}\n🚚 Shipping: KES ${shipping.toFixed(2)}\n🧾 Total: KES ${total.toFixed(2)}\n\n🙏 Thank you for shopping with Bohemian Integrations 🌿`;
 
-    await Swal.fire({
-      title: "Kindly Proceed to Payment 💚🤗",
-      html: "When you're ready, click Proceed to Payment to complete via M-Pesa.",
-      icon: "info",
-      showConfirmButton: true,
-      confirmButtonText: "Okay, proceed",
-      didOpen: () => Swal.getPopup().classList.add("animate__animated", "animate__fadeIn")
-    });
+    try {
+        // Show loading popup
+        Swal.fire({
+            title: "Placing your order...",
+            html: "Generating invoice & sending emails 💚",
+            allowOutsideClick: false,
+            didOpen: () => Swal.showLoading(),
+            showClass: { popup: 'animate__animated animate__fadeIn' },
+            hideClass: { popup: 'animate__animated animate__fadeOut' }
+        });
 
-    localStorage.removeItem("cart");
+        // Send order to your server to email both you and client
+        const response = await fetch("/api/sendInvoice", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                name, email, phone, address, cart, subtotal, shipping, total, orderText
+            })
+        });
 
-  } catch (err) {
-    console.error("Place order error:", err);
-    Swal.close();
-    Swal.fire({ icon: "error", title: "Order Error", text: err.message || "Please try again." });
-  }
+        const data = await response.json();
+        Swal.close();
+
+        if (!response.ok || !data.success) {
+            return Swal.fire({
+                icon: "error",
+                title: "Order Failed",
+                text: data.message || "Please try again.",
+                showClass: { popup: 'animate__animated animate__shakeX' },
+                hideClass: { popup: 'animate__animated animate__fadeOut' }
+            });
+        }
+
+        // --- Success Popups ---
+
+        // Popup 1: Order placed successfully
+        await Swal.fire({
+            title: "Order Placed Successfully 🎉",
+            html: "Thank you for shopping with Bohemian Integrations! 💚",
+            icon: "success",
+            timer: 5000,
+            showConfirmButton: false,
+            showClass: { popup: 'animate__animated animate__fadeInDown' },
+            hideClass: { popup: 'animate__animated animate__fadeOutUp' }
+        });
+
+        // Popup 2: Proceed to payment
+        await Swal.fire({
+            title: "Kindly Proceed to Payment 💚",
+            html: "When ready, complete payment via your preferred method. We wish you the best! ✨",
+            icon: "info",
+            timer: 5000,
+            showConfirmButton: true,
+            confirmButtonText: "Okay, proceed",
+            showClass: { popup: 'animate__animated animate__fadeInDown' },
+            hideClass: { popup: 'animate__animated animate__fadeOutUp' }
+        });
+
+        // Clear cart after confirmation
+        localStorage.removeItem("cart");
+
+    } catch (err) {
+        Swal.close();
+        console.error(err);
+        Swal.fire({
+            icon: "error",
+            title: "Order Error",
+            text: err.message || "Something went wrong. Please try again.",
+            showClass: { popup: 'animate__animated animate__shakeX' },
+            hideClass: { popup: 'animate__animated animate__fadeOut' }
+        });
+    }
 });
 </script>
-
 
 </body>
 
 
 </html>
+
 
 
 
