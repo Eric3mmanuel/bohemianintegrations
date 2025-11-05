@@ -796,6 +796,48 @@ document.getElementById("place-order").addEventListener("click", async () => {
 });
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+//Mpesa
+<script>
+async function payWithMpesa(phone, amount) {
+  Swal.fire({
+    title: 'Connecting to M-PESA...',
+    text: 'Please wait while we initiate payment.',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/8/89/Mpesa_logo.png',
+    imageWidth: 80,
+    showConfirmButton: false,
+    allowOutsideClick: false,
+    didOpen: () => Swal.showLoading(),
+  });
+
+  const res = await fetch('/api/mpesaExpress', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ phone, amount })
+  });
+
+  const data = await res.json();
+  Swal.close();
+
+  if (data.success) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Check your phone 📱',
+      text: 'Enter your M-PESA PIN to complete payment.',
+      showConfirmButton: true,
+      confirmButtonText: 'OK',
+    });
+  } else {
+    Swal.fire({
+      icon: 'error',
+      title: 'Payment Error',
+      text: data.error?.errorMessage || 'Could not process payment. Try again.',
+    });
+  }
+}
+</script>
+
 </body>
 
 
