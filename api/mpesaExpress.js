@@ -18,7 +18,7 @@ export default async function handler(req, res) {
   try {
     // 1️⃣ Generate Access Token
     const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString("base64");
-    const tokenRes = await fetch("https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials", {
+    const tokenRes = await fetch("https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials", {
       headers: { Authorization: `Basic ${auth}` },
     });
     const tokenData = await tokenRes.json();
@@ -46,7 +46,7 @@ export default async function handler(req, res) {
     };
 
     // 3️⃣ Send STK Push
-    const stkRes = await fetch("https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest", {
+    const stkRes = await fetch("https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
