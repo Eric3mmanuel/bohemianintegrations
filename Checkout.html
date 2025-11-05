@@ -798,141 +798,156 @@ document.getElementById("place-order").addEventListener("click", async () => {
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<!-- SweetAlert2 -->
+<!-- SweetAlert2 & Confetti -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
 <script>
 document.getElementById("procedPaymentBtn").addEventListener("click", async () => {
-  const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked');
-
-  if (!selectedMethod) {
-    Swal.fire({
-      icon: 'warning',
-      title: '✨ Select a Payment Method ✨',
-      text: 'Please choose your preferred payment method before proceeding 💳',
-      background: 'rgba(255,255,255,0.95)',
-      color: '#333',
-      confirmButtonColor: '#3085d6',
-      showClass: { popup: 'animate__animated animate__fadeInDown' },
-      hideClass: { popup: 'animate__animated animate__fadeOutUp' }
+  // Check if M-PESA is selected
+  const mpesaSelected = document.querySelector('input[type="radio"][id="mpesaExpress"]')?.checked;
+  if (!mpesaSelected) {
+    return Swal.fire({
+      icon: "warning",
+      title: "No Payment Method Selected 😅",
+      text: "Please select M-PESA Express to proceed with payment.",
+      background: "linear-gradient(135deg,#fffaf0,#f0fff4)",
+      confirmButtonColor: "#3085d6",
+      showClass: { popup: "animate__animated animate__fadeInDown" },
+      hideClass: { popup: "animate__animated animate__fadeOutUp" }
     });
-    return;
   }
 
-  // Calculate total from localStorage cart
-  const cart = JSON.parse(localStorage.getItem("cart") || "[]");
-  const subtotal = cart.reduce((sum, item) => sum + (Number(item.price) * (Number(item.quantity) || 1)), 0);
-  const shipping = 0;
-  const totalAmount = subtotal + shipping;
-
-  if (selectedMethod.value === 'mpesa') {
-    Swal.fire({
-      title: 'Connecting to M-PESA 💚',
-      html: `
-        <div style="font-size:15px;color:#444">Please wait as we initiate your payment prompt...</div>
-        <div class="loader" style="margin-top:15px;width:40px;height:40px;border:4px solid #b2f5ea;border-top:4px solid #00BFA5;border-radius:50%;animation:spin 1s linear infinite;"></div>
-        <style>@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}</style>
-      `,
-      background: 'linear-gradient(135deg,#f0fff4,#e6fffa)',
-      allowOutsideClick: false,
-      showConfirmButton: false,
-      didOpen: () => Swal.showLoading(),
-      showClass: { popup: 'animate__animated animate__fadeIn' },
-      hideClass: { popup: 'animate__animated animate__fadeOut' }
+  try {
+    // Prompt user for M-PESA number
+    const phoneInput = await Swal.fire({
+      title: "Enter Your M-PESA Number 📱",
+      input: "text",
+      inputLabel: "Accepted formats: 07XXXXXXXX or 01XXXXXXXX",
+      inputPlaceholder: "e.g. 0712345678 or 0112345678",
+      background: "linear-gradient(135deg, #fdfbfb, #ebedee)",
+      showCancelButton: true,
+      confirmButtonText: "Proceed to Payment 💸",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      preConfirm: (value) => value.trim()
     });
 
-    try {
-      const phone = prompt("Please enter your M-PESA phone number (format: 2547XXXXXXXX):");
+    const rawPhone = phoneInput.value;
 
-      if (!phone || !/^(2547\d{8})$/.test(phone)) {
-        Swal.close();
-        return Swal.fire({
-          icon: 'error',
-          title: 'Invalid Phone Number 😞',
-          text: 'Please enter a valid Safaricom number starting with 2547.',
-          background: 'linear-gradient(135deg,#fff5f5,#ffe0e0)',
-          confirmButtonColor: '#d33'
-        });
-      }
-
-      const res = await fetch('/api/stkpush', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ phone, amount: totalAmount })
-      });
-
-      const data = await res.json();
-      Swal.close();
-
-      if (data.ResponseCode === "0") {
-        // Confetti burst 🎉
-        const end = Date.now() + 800;
-        (function frame() {
-          const timeLeft = end - Date.now();
-          if (timeLeft <= 0) return;
-          const confettiCount = 15 * (timeLeft / 800);
-          requestAnimationFrame(frame);
-          for (let i = 0; i < confettiCount; i++) {
-            const emoji = ['💸', '✨', '💚'][Math.floor(Math.random()*3)];
-            const span = document.createElement('span');
-            span.textContent = emoji;
-            span.style.position = 'fixed';
-            span.style.left = Math.random()*100 + 'vw';
-            span.style.top = '0px';
-            span.style.fontSize = '24px';
-            span.style.animation = `fall ${1+Math.random()}s linear`;
-            document.body.appendChild(span);
-            setTimeout(() => span.remove(), 1500);
-          }
-        })();
-        const style = document.createElement('style');
-        style.textContent = `@keyframes fall{to{transform:translateY(100vh) rotate(360deg);opacity:0}}`;
-        document.head.appendChild(style);
-
-        // Success popup
-        Swal.fire({
-          icon: 'success',
-          title: 'STK Push Sent! 🎉',
-          html: `<b>Check your phone and enter your M-PESA PIN</b> to complete payment.<br><br><span style="font-size:14px;color:#666">Amount: KES ${totalAmount.toFixed(2)}<br>Bohemian Integrations appreciates you 💚</span>`,
-          background: 'linear-gradient(135deg,#ffffff,#e6fffa)',
-          confirmButtonText: 'Done ✨',
-          confirmButtonColor: '#00BFA5',
-          showClass: { popup: 'animate__animated animate__fadeInDown' },
-          hideClass: { popup: 'animate__animated animate__fadeOutUp' }
-        });
-
-        // Clear cart after payment
-        localStorage.removeItem("cart");
-      } else {
-        Swal.fire({
-          icon: 'error',
-          title: 'Payment Failed 😞',
-          text: data.errorMessage || 'Something went wrong. Please try again.',
-          background: 'linear-gradient(135deg,#fff5f5,#ffe0e0)',
-          confirmButtonColor: '#d33',
-          showClass: { popup: 'animate__animated animate__shakeX' },
-          hideClass: { popup: 'animate__animated animate__fadeOut' }
-        });
-      }
-    } catch (error) {
-      Swal.close();
-      Swal.fire({
-        icon: 'error',
-        title: 'Connection Error 🌐',
-        text: 'We couldn’t reach the payment server. Please try again later.',
-        background: 'linear-gradient(135deg,#fff5f5,#ffe0e0)',
-        confirmButtonColor: '#d33'
+    // Validate phone number
+    if (!rawPhone || !/^(0(7|1)\d{8})$/.test(rawPhone)) {
+      return Swal.fire({
+        icon: "error",
+        title: "Invalid Phone Number 😞",
+        text: "Please enter a valid Kenyan number starting with 07 or 01.",
+        background: "linear-gradient(135deg,#fff5f5,#ffe0e0)",
+        confirmButtonColor: "#d33",
+        showClass: { popup: "animate__animated animate__shakeX" },
+        hideClass: { popup: "animate__animated animate__fadeOut" }
       });
     }
-  } else {
+
+    const phone = "254" + rawPhone.substring(1);
+
+    // Payment processing popup
     Swal.fire({
-      icon: 'info',
-      title: 'Coming Soon 💫',
-      text: `Payment method "${selectedMethod.value}" is being set up.`,
-      background: 'linear-gradient(135deg,#e0f7fa,#ffffff)',
-      confirmButtonColor: '#3085d6',
-      showClass: { popup: 'animate__animated animate__fadeInDown' },
-      hideClass: { popup: 'animate__animated animate__fadeOutUp' }
+      icon: "info",
+      title: "Processing Payment 💫",
+      text: "Kindly wait as we initiate M-PESA Express...",
+      showConfirmButton: false,
+      allowOutsideClick: false,
+      background: "linear-gradient(135deg,#fdfbfb,#ebedee)",
+      didOpen: () => Swal.showLoading()
+    });
+
+    // Assume totalAmount is fetched from your cart/checkout
+    const totalAmount = 1200; // replace with your dynamic total
+
+    // Send STK push request
+    const res = await fetch("/api/stkpush", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ amount: totalAmount, phone })
+    });
+
+    const data = await res.json();
+    Swal.close();
+
+    // If STK push is successful
+    if (res.ok && data?.ResponseCode === "0") {
+      Swal.fire({
+        icon: "success",
+        title: "STK Push Sent Successfully 🎉",
+        text: "Check your phone and enter your M-PESA PIN to complete payment!",
+        background: "linear-gradient(135deg,#e0ffe0,#ffffff)",
+        confirmButtonColor: "#3085d6",
+        showClass: { popup: "animate__animated animate__fadeInDown" },
+        hideClass: { popup: "animate__animated animate__fadeOutUp" },
+        didOpen: () => {
+          const duration = 2000;
+          const end = Date.now() + duration;
+          (function frame() {
+            confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 } });
+            confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 } });
+            if (Date.now() < end) requestAnimationFrame(frame);
+          })();
+        }
+      });
+
+      // ✅ Automatically check payment status every 5 seconds
+      const checkStatus = setInterval(async () => {
+        try {
+          const verify = await fetch("/api/mpesaCallback");
+          const result = await verify.json();
+
+          if (result?.status === "paid") {
+            clearInterval(checkStatus);
+            Swal.fire({
+              icon: "success",
+              title: "Payment Successful 🎊",
+              text: "Your payment has been confirmed by M-PESA. Thank you for shopping with Bohemian Integrations 🌿",
+              background: "linear-gradient(135deg,#e0ffe0,#f0fff4)",
+              confirmButtonColor: "#3085d6",
+              showClass: { popup: "animate__animated animate__fadeInDown" },
+              hideClass: { popup: "animate__animated animate__fadeOutUp" },
+              didOpen: () => {
+                // Confetti explosion 🎉
+                const duration = 2000;
+                const end = Date.now() + duration;
+                (function frame() {
+                  confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 } });
+                  confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 } });
+                  if (Date.now() < end) requestAnimationFrame(frame);
+                })();
+              }
+            });
+          }
+        } catch (e) {
+          console.warn("Payment status check failed", e);
+        }
+      }, 5000);
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Payment Failed 😞",
+        text: "We were unable to process your M-PESA payment. Please try again.",
+        background: "linear-gradient(135deg,#fff5f5,#ffe0e0)",
+        confirmButtonColor: "#d33",
+        showClass: { popup: "animate__animated animate__shakeX" },
+        hideClass: { popup: "animate__animated animate__fadeOut" }
+      });
+    }
+
+  } catch (error) {
+    console.error(error);
+    Swal.fire({
+      icon: "error",
+      title: "Unexpected Error 😢",
+      text: "Something went wrong. Please try again later.",
+      background: "linear-gradient(135deg,#fff5f5,#ffe0e0)",
+      confirmButtonColor: "#d33"
     });
   }
 });
@@ -940,10 +955,12 @@ document.getElementById("procedPaymentBtn").addEventListener("click", async () =
 
 
 
+
 </body>
 
 
 </html>
+
 
 
 
