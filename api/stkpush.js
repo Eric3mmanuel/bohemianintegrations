@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString("base64");
 
     const tokenResponse = await fetch(
-      "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
+      "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
       {
         headers: {
           Authorization: `Basic ${auth}`,
@@ -43,7 +43,7 @@ export default async function handler(req, res) {
 
     // Step 2: Send STK Push Request
     const stkResponse = await fetch(
-      "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
+      "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest",
       {
         method: "POST",
         headers: {
