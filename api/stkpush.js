@@ -5,10 +5,10 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ message: 'Method not allowed' });
 
   const { phone, amount } = req.body;
-  const shortCode = "YOUR_SHORTCODE";
-  const passKey = "YOUR_PASSKEY";
-  const consumerKey = "YOUR_CONSUMER_KEY";
-  const consumerSecret = "YOUR_CONSUMER_SECRET";
+  const shortCode = "174379";
+  const passKey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919";
+  const consumerKey = "9c87CEMWWjQZtvIVwb7ADIndBWbVdFHh6ZgNH0KnfhRFvqFQ";
+  const consumerSecret = "ONRF5PaqABtNTmltWlATUwiDpi86ViUuMXwfM425xmQTXBw1qOxw87sfoztfsA3V";
 
   try {
     // Get Access Token
