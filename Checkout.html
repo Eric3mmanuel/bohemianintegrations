@@ -954,12 +954,119 @@ document.getElementById("procedPaymentBtn").addEventListener("click", async () =
 </script>
 
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+<script>
+document.getElementById("mpesaExpressBtn").addEventListener("click", async () => {
+  try {
+    const phone = prompt("Please enter your M-PESA phone number (e.g., 07XXXXXXXX or 01XXXXXXXX):");
+
+    // ✅ Validate Kenyan numbers starting with 07 or 01
+    if (!phone || !/^(?:07\d{8}|01\d{8})$/.test(phone)) {
+      return Swal.fire({
+        icon: 'error',
+        title: 'Invalid Phone Number 😞',
+        text: 'Please enter a valid Safaricom number starting with 07 or 01.',
+        background: 'linear-gradient(135deg,#fff5f5,#ffe0e0)',
+        confirmButtonColor: '#d33'
+      });
+    }
+
+    // Convert to 254 format
+    const formattedPhone = "254" + phone.substring(1);
+
+    Swal.fire({
+      title: 'Processing Payment ⏳',
+      html: 'Please approve the STK Push on your phone...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
+    // --- Step 1: Trigger STK Push ---
+    const stkResponse = await fetch("/api/stkpush", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ phone: formattedPhone, amount: 1 }) // adjust amount
+    });
+
+    const data = await stkResponse.json();
+    console.log("STK Response:", data);
+
+    if (!data.CheckoutRequestID) {
+      Swal.close();
+      return Swal.fire({
+        icon: 'error',
+        title: 'Payment Error ⚠️',
+        text: 'Could not initiate M-PESA STK Push. Please try again.',
+        confirmButtonColor: '#d33'
+      });
+    }
+
+    const checkoutRequestID = data.CheckoutRequestID;
+
+    // --- Step 2: Poll backend every 5 seconds to check if payment confirmed ---
+    const checkPayment = async () => {
+      const response = await fetch("/api/checkPayment?checkoutRequestID=" + checkoutRequestID);
+      const result = await response.json();
+
+      if (result.status === "paid") {
+        Swal.close();
+
+        // 🎊 SweetAlert + Confetti
+        Swal.fire({
+          icon: 'success',
+          title: 'Payment Successful 🎊',
+          text: 'Thank you! Your payment has been confirmed by M-PESA.',
+          background: 'linear-gradient(135deg,#e0ffe0,#f5fff5)',
+          confirmButtonColor: '#28a745',
+          didOpen: () => {
+            // 🎉 Confetti effect
+            confetti({
+              particleCount: 200,
+              spread: 80,
+              origin: { y: 0.6 }
+            });
+          }
+        });
+        clearInterval(polling);
+      } else if (result.status === "failed") {
+        Swal.close();
+        Swal.fire({
+          icon: 'error',
+          title: 'Payment Failed ❌',
+          text: 'The transaction did not complete. Please try again.',
+        });
+        clearInterval(polling);
+      }
+    };
+
+    // Poll every 5s
+    const polling = setInterval(checkPayment, 5000);
+
+  } catch (err) {
+    console.error(err);
+    Swal.close();
+    Swal.fire({
+      icon: 'error',
+      title: 'Error 💥',
+      text: 'Something went wrong. Please try again later.'
+    });
+  }
+});
+</script>
+
+
+
 
 
 </body>
 
 
 </html>
+
 
 
 
