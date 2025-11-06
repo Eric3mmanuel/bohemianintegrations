@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     const auth = Buffer.from(`${consumerKey}:${consumerSecret}`).toString("base64");
 
     const tokenResponse = await fetch(
-      "https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
+      "https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials",
       {
         headers: {
           Authorization: `Basic ${auth}`,
