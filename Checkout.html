@@ -120,40 +120,19 @@
                     <button class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
                         data-bs-toggle="modal" data-bs-target="#searchModal"><i
                             class="fas fa-search text-primary"></i></button>
-                 <a href="cart.html" class="position-relative me-4 my-auto">
-                    <i class="fa fa-shopping-bag fa-2x"></i>
-                    <span
-                    class="cart-count position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
-                    style="top: -5px; left: 15px; height: 20px; min-width: 20px;">0</span>
-                 </a>
-                    <a  class="my-auto" data-bs-toggle="modal" data-bs-target="#authModal">
-                    <i class="fas fa-user fa-2x"></i>
+                    <a href="#" class="position-relative me-4 my-auto">
+                        <i class="fa fa-shopping-bag fa-2x"></i>
+                        <span
+                            class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                     </a>
-
+                    <a href="#" class="my-auto">
+                        <i class="fas fa-user fa-2x"></i>
+                    </a>
                 </div>
 
             </div>
         </nav>
-
-        <!-- Auth Modal -->
-        <div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content p-4">
-                    <div class="modal-header border-0">
-                        <h5 class="modal-title">Sign In / Sign Up</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <input type="email" id="email" class="form-control mb-3" placeholder="Email">
-                        <input type="password" id="password" class="form-control mb-3" placeholder="Password">
-                        <button id="signup" class="btn btn-success w-100 mb-2">Sign Up</button>
-                        <button id="login" class="btn btn-primary w-100">Login</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--auth modal close-->
-
 
         <!-- Header Start -->
         <div class="container-fluid bg-breadcrumb">
@@ -236,13 +215,13 @@
                                 <div class="col-md-12 col-lg-6">
                                     <div class="form-item w-100">
                                         <label class="form-label my-3">First Name<sup>*</sup></label>
-                                        <input type="text" id="first-name" class="form-control">
+                                        <input type="text" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-12 col-lg-6">
                                     <div class="form-item w-100">
                                         <label class="form-label my-3">Last Name<sup>*</sup></label>
-                                        <input type="text" id="last-name" class="form-control">
+                                        <input type="text" class="form-control">
                                     </div>
                                 </div>
                             </div>
@@ -250,12 +229,12 @@
                             
                             <div class="form-item">
                                 <label class="form-label my-3">Town/City<sup>*</sup></label>
-                                <input type="text" id="town" class="form-control">
+                                <input type="text" class="form-control">
                             </div>
 
                             <div class="form-item">
                                 <label class="form-label my-3">Region <sup>*</sup></label>
-                                <input type="text" id="region" class="form-control" placeholder="e.g Kikuyu, Ngong, Karen">
+                                <input type="text" class="form-control" placeholder="e.g Kikuyu, Ngong, Karen">
                             </div>
                             <!--<div class="form-item">
                                 <label class="form-label my-3">Country<sup>*</sup></label>
@@ -264,11 +243,11 @@
                            
                             <div class="form-item">
                                 <label class="form-label my-3">Mobile<sup>*</sup></label>
-                                <input type="tel" id="phone" class="form-control">
+                                <input type="tel" class="form-control">
                             </div>
                             <div class="form-item">
                                 <label class="form-label my-3">Email Address<sup>*</sup></label>
-                                <input type="email" id="email" class="form-control" placeholder="To receive your invoice and receipt">
+                                <input type="email" class="form-control" placeholder="To receive your invoice and receipt">
                             </div>
                             <div class="form-check my-3">
                                 <input type="checkbox" class="form-check-input" id="Account-1" name="Accounts"
@@ -375,10 +354,10 @@
 
 
         <!-- Footer Start -->
-    <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
-        <div class="container py-5">
-            <div class="row g-5 mb-5 align-items-center">
-                <!--<div class="col-lg-7">
+        <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
+            <div class="container py-5">
+                <div class="row g-5 mb-5 align-items-center">
+                    <!--<div class="col-lg-7">
                     <div class="position-relative mx-auto">
                         <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
                             placeholder="Email address to Subscribe">
@@ -386,82 +365,82 @@
                             class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 px-4 mt-2 me-2">Subscribe</button>
                     </div>
                 </div>-->
-                <div class="col-lg-5">
-                    <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
-                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href="https://www.facebook.com/share/1CvVQcqyv3/"><i
-                                class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
-                                class="fab fa-tiktok"></i></a>
-                        <a class="btn btn-secondary btn-md-square rounded-circle me-3" href="https://www.instagram.com/bohemian_integrations?igsh=dmh2Mmk5Z3h3cThk"><i
-                                class="fab fa-instagram"></i></a>
-                        <a class="btn btn-secondary btn-md-square rounded-circle me-0" href=""><i
-                                class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="row g-5">
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="footer-item d-flex flex-column">
-                        <div class="footer-item">
-                            <h3 class="text-white mb-4"><img src="img/Bohemian Integrations logo.jpg" alt="Logo"
-                                    style="width: 70px;height: 70px;border-radius: 50px;">Bohemian Integrations
-                            </h3>
-                            <p class="mb-3">Connecting you,with your inner self🧘✨</p>
-                        </div>
-                        <div class="position-relative">
-                            <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
-                                placeholder="Enter your email">
-                            <button type="button"
-                                class="my-auto btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2" data-bs-toggle="modal" data-bs-target="#authModal">SignUp</button>
-                                
+                    <div class="col-lg-5">
+                        <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
+                            <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                    class="fab fa-tiktok"></i></a>
+                            <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i
+                                    class="fab fa-instagram"></i></a>
+                            <a class="btn btn-secondary btn-md-square rounded-circle me-0" href=""><i
+                                    class="fab fa-youtube"></i></a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="footer-item d-flex flex-column">
-                        <h4 class="text-white mb-4">Bohemian Integrations</h4>
-                        <a href="about.html"><i class="fas fa-angle-right me-2"></i> About us</a>
-                        <a href="service.html"><i class="fas fa-angle-right me-2"></i> Services</a>
-                        <a href="product.html"><i class="fas fa-angle-right me-2"></i> Products</a>
-                        <a href="cart.html"><i class="fas fa-angle-right me-2"></i> Cart</a>
-                        <a href="Checkout.html"><i class="fas fa-angle-right me-2"></i> Checkout</a>
-                        <a href="blog.html"><i class="fas fa-angle-right me-2"></i> Our Blog</a>
-                        <a href="contact.html"><i class="fas fa-angle-right me-2"></i> Contact us</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="footer-item d-flex flex-column">
-                        <h4 class="text-white mb-4">Business Hours</h4>
-                        <div class="mb-3">
-                            <h6 class="text-muted mb-0">Mon - Friday:</h6>
-                            <p class="text-white mb-0">09.00 am to 07.00 pm</p>
-                        </div>
-                        <div class="mb-3">
-                            <h6 class="text-muted mb-0">Saturday:</h6>
-                            <p class="text-white mb-0">10.00 am to 05.00 pm</p>
-                        </div>
-                        <div class="mb-3">
-                            <h6 class="text-muted mb-0">Vacation:</h6>
-                            <p class="text-white mb-0">All Sunday is our vacation 🍹🌴</p>
+                <div class="row g-5">
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <div class="footer-item">
+                                <h3 class="text-white mb-4"><img src="img/Bohemian Integrations logo.jpg" alt="Logo"
+                                        style="width: 70px;height: 70px;border-radius: 50px;">Bohemian Integrations
+                                </h3>
+                                <p class="mb-3">Connecting you,with your inner self🧘✨</p>
+                            </div>
+                            <div class="position-relative">
+                                <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
+                                    placeholder="Enter your email">
+                                <button type="button"
+                                    class="btn btn-secondary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">SignUp</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="footer-item d-flex flex-column">
-                        <h4 class="text-white mb-4">Contact Info</h4>
-                        <a href="#"><i class="fa fa-map-marker-alt me-2"></i> Kileleshwa , Nairobi, Kenya</a>
-                        <a href="info@bohemianintegrations.com"><i class="fas fa-envelope me-2"></i>
-                            info@bohemianintegrations.com</a>
-                        <a href="bohemianintegrations@gmail.com"><i class="fas fa-envelope me-2"></i>
-                            bohemianintegrations@gmail.com</a>
-                        <a href="tel:+254784587728"><i class="fas fa-phone me-2"></i> +254 784587728</a>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="text-white mb-4">Bohemian Integrations</h4>
+                            <a href="about.html"><i class="fas fa-angle-right me-2"></i> About us</a>
+                            <a href="service.html"><i class="fas fa-angle-right me-2"></i> Services</a>
+                            <a href="product.html"><i class="fas fa-angle-right me-2"></i> Products</a>
+                            <a href="cart.html"><i class="fas fa-angle-right me-2"></i> Cart</a>
+                            <a href="Checkout.html"><i class="fas fa-angle-right me-2"></i> Checkout</a>
+                            <a href="blog.html"><i class="fas fa-angle-right me-2"></i> Our Blog</a>
+                            <a href="contact.html"><i class="fas fa-angle-right me-2"></i> Contact us</a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="text-white mb-4">Business Hours</h4>
+                            <div class="mb-3">
+                                <h6 class="text-muted mb-0">Mon - Friday:</h6>
+                                <p class="text-white mb-0">09.00 am to 07.00 pm</p>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="text-muted mb-0">Saturday:</h6>
+                                <p class="text-white mb-0">10.00 am to 05.00 pm</p>
+                            </div>
+                            <div class="mb-3">
+                                <h6 class="text-muted mb-0">Vacation:</h6>
+                                <p class="text-white mb-0">All Sunday is our vacation 🍹🌴</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xl-3">
+                        <div class="footer-item d-flex flex-column">
+                            <h4 class="text-white mb-4">Contact Info</h4>
+                            <a href="#"><i class="fa fa-map-marker-alt me-2"></i> Kileleshwa , Nairobi, Kenya</a>
+                            <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i>
+                                info@bohemianintegrations.com</a>
+                            <a href="mailto:info@example.com"><i class="fas fa-envelope me-2"></i>
+                                bohemianintegrations@gmail.com</a>
+                            <a href="tel:+012 345 67890"><i class="fas fa-phone me-2"></i> +254 784587728</a>
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Footer End -->
+        <!-- Footer End -->
+
         <!-- Copyright Start -->
         <div class="container-fluid copyright py-4">
             <div class="container">
@@ -503,116 +482,6 @@
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
-
-         <!-- Firebase Authentication Script -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-        import {
-            getAuth,
-            createUserWithEmailAndPassword,
-            signInWithEmailAndPassword,
-            signOut,
-            onAuthStateChanged
-        } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
-        import {
-            getFirestore,
-            doc,
-            setDoc,
-            getDoc,
-            updateDoc,
-            arrayUnion
-        } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-
-
-        //replace with projects cofigs n firebase
-        const firebaseConfig = {
-    apiKey: "YOUR-API-KEY",
-    authDomain: "YOUR-PROJECT.firebaseapp.com",
-    projectId: "YOUR-PROJECT-ID",
-    storageBucket: "YOUR-PROJECT.appspot.com",
-    messagingSenderId: "SENDER-ID",
-    appId: "APP-ID"
-  };
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-
-        // ✨ Sign Up
-        document.getElementById('signup').addEventListener('click', async () => {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                await createUserWithEmailAndPassword(auth, email, password);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Welcome!',
-                    text: `Your account has been created successfully, ${email}.`,
-                    confirmButtonColor: '#4CAF50',
-                    confirmButtonText: 'Continue 🌿'
-                });
-            } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Signup Failed',
-                    text: error.message,
-                    confirmButtonColor: '#d33',
-                    confirmButtonText: 'Try Again'
-                });
-            }
-        });
-
-        // ✨ Login
-        document.getElementById('login').addEventListener('click', async () => {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                await signInWithEmailAndPassword(auth, email, password);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Welcome back!',
-                    text: `You are now logged in as ${email}.`,
-                    confirmButtonColor: '#4CAF50',
-                    confirmButtonText: 'Awesome 🌸'
-                }).then(() => {
-                    // Redirect after user clicks the confirmation
-                    window.location.href = "index.html";
-                });
-            } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Login Failed',
-                    text: error.message,
-                    confirmButtonColor: '#d33',
-                    confirmButtonText: 'Try Again'
-                });
-            }
-        });
-
-        // 🔄 Listen for login state changes and cart sync
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                console.log(`User logged in: ${user.email}`);
-
-                // Try to load user's saved cart from Firestore
-                const userCartRef = doc(db, "carts", user.uid);
-                const userCartSnap = await getDoc(userCartRef);
-
-                if (userCartSnap.exists()) {
-                    const savedCart = userCartSnap.data().items || [];
-                    localStorage.setItem("cart", JSON.stringify(savedCart));
-                    console.log("Cart restored from Firestore:", savedCart);
-                }
-            } else {
-                console.log("User is logged out.");
-            }
-        });
-
-    </script>
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 
 
         <!-- ✅ Universal Cart Count + Animation Script -->
@@ -808,13 +677,12 @@ document.getElementById("place-order").addEventListener("click", async () => {
     const cart = JSON.parse(localStorage.getItem("cart") || "[]");
 
     // Collect billing details
-    const firstName = document.getElementById("first-name").value.trim();
-    const lastName = document.getElementById("last-name").value.trim();
-    const name = `${firstName} ${lastName}`.trim();
-    const email = document.getElementById("email").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const address = `${document.getElementById("town").value.trim()}, ${document.getElementById("region").value.trim()}`.trim();
-
+    const firstName = document.querySelectorAll('input[type="text"]')[0]?.value?.trim() || "";
+    const lastName = document.querySelectorAll('input[type="text"]')[1]?.value?.trim() || "";
+    const name = (firstName + " " + lastName).trim();
+    const email = document.querySelector('input[type="email"]')?.value?.trim() || "";
+    const phone = document.querySelector('input[type="tel"]')?.value?.trim() || "";
+    const address = document.querySelector('input[placeholder="e.g Kikuyu, Ngong, Karen"]')?.value?.trim() || document.querySelector('input[placeholder="Town/City"]')?.value?.trim() || "";
 
     // Validation
     if (!name || !email || !phone || cart.length === 0) {
@@ -1198,11 +1066,6 @@ document.getElementById("mpesaExpressBtn").addEventListener("click", async () =>
 
 
 </html>
-
-
-
-
-
 
 
 
