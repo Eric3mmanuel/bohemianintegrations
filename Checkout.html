@@ -63,6 +63,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
 
+    <!-- Add this inside <head> -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+
 </head>
 
 <body>
@@ -1078,8 +1083,7 @@ document.getElementById("mpesaExpressBtn").addEventListener("click", async () =>
 
 
     <script>
-        //Geolocation script
-let map, marker, selectedLat, selectedLng;
+let map, marker;
 
 document.getElementById("select-location").addEventListener("click", () => {
   if (navigator.geolocation) {
@@ -1087,69 +1091,52 @@ document.getElementById("select-location").addEventListener("click", () => {
       (position) => {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
-        showMap(lat, lng);
+
+        document.getElementById("map-container").style.display = "block";
+
+        if (!map) {
+          map = L.map('map').setView([lat, lng], 15);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+          }).addTo(map);
+
+          marker = L.marker([lat, lng], { draggable: true }).addTo(map);
+
+          saveLocation(lat, lng);
+
+          marker.on('dragend', function (e) {
+            const newPos = marker.getLatLng();
+            saveLocation(newPos.lat, newPos.lng);
+          });
+        } else {
+          map.setView([lat, lng], 15);
+          marker.setLatLng([lat, lng]);
+          saveLocation(lat, lng);
+        }
       },
-      (error) => {
-        alert("⚠️ Please enable GPS to select your location.");
-        console.error(error);
-      }
+      (err) => alert("⚠️ Please enable location access.")
     );
   } else {
-    alert("❌ Geolocation is not supported by this browser.");
+    alert("❌ Geolocation not supported.");
   }
 });
-
-function showMap(lat, lng) {
-  const mapContainer = document.getElementById("map-container");
-  mapContainer.style.display = "block";
-  mapContainer.classList.add("show");
-
-  if (!map) {
-    map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat, lng },
-      zoom: 15,
-      disableDefaultUI: true,
-    });
-
-    marker = new google.maps.Marker({
-      position: { lat, lng },
-      map: map,
-      draggable: true,
-      animation: google.maps.Animation.DROP,
-    });
-
-    marker.addListener("dragend", () => {
-      const pos = marker.getPosition();
-      selectedLat = pos.lat();
-      selectedLng = pos.lng();
-    });
-
-    selectedLat = lat;
-    selectedLng = lng;
-  } else {
-    map.setCenter({ lat, lng });
-    marker.setPosition({ lat, lng });
-  }
-}
 
 document.getElementById("confirm-location").addEventListener("click", () => {
-  if (selectedLat && selectedLng) {
-    const link = `https://www.google.com/maps?q=${selectedLat},${selectedLng}`;
-    localStorage.setItem("userLocation", JSON.stringify({
-      latitude: selectedLat,
-      longitude: selectedLng,
-      googleMapsLink: link
-    }));
-
-    document.getElementById("location-display").innerHTML = 
-      `✅ Location pinned! <a href="${link}" target="_blank">View on Google Maps</a>`;
-    
-    document.getElementById("map-container").style.display = "none";
-  } else {
-    alert("Please select your location first.");
-  }
+  document.getElementById("map-container").style.display = "none";
 });
+
+function saveLocation(lat, lng) {
+  const googleMapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
+  localStorage.setItem("userLocation", JSON.stringify({
+    latitude: lat,
+    longitude: lng,
+    googleMapsLink
+  }));
+  document.getElementById("location-display").innerHTML = 
+    `✅ Location pinned! <a href="${googleMapsLink}" target="_blank">View on Map</a>`;
+}
 </script>
+
 
 
 
@@ -1160,6 +1147,7 @@ document.getElementById("confirm-location").addEventListener("click", () => {
 
 
 </html>
+
 
 
 
