@@ -818,6 +818,60 @@ document.getElementById("place-order").addEventListener("click", async () => {
         });
     }
 });
+    //send location to form
+    async function sendOrderSummary() {
+  try {
+    // Get cart data
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const location = JSON.parse(localStorage.getItem("userLocation")) || {};
+    const billing = {
+      firstName: document.querySelector('input[placeholder="e.g. 0712345678 or 0112345678"]')?.value || "",
+      email: document.querySelector('input[type="email"]')?.value || "",
+      phone: document.querySelector('input[type="tel"]')?.value || "",
+      city: document.querySelector('input[placeholder*="City"]')?.value || "",
+      region: document.querySelector('input[placeholder*="Kikuyu"]')?.value || "",
+    };
+
+    // Build order summary text
+    let message = `🛒 *New Order from Bohemian Integrations*\n\n`;
+    message += `👤 Name: ${billing.firstName}\n📧 Email: ${billing.email}\n📞 Phone: ${billing.phone}\n🏙️ City: ${billing.city}\n🌍 Region: ${billing.region}\n\n`;
+    message += `📦 *Items Ordered:*\n`;
+
+    let subtotal = 0;
+    cart.forEach((item, i) => {
+      const total = item.price * item.quantity;
+      subtotal += total;
+      message += `${i + 1}. ${item.name} x${item.quantity} — KES ${total}\n`;
+    });
+
+    message += `\n💰 Subtotal: KES ${subtotal}\n🚚 Logistics: KES 300\n🧾 Total: KES ${subtotal + 300}\n`;
+
+    if (location.latitude) {
+      message += `\n📍 *Delivery Location:*\nLat: ${location.latitude}\nLng: ${location.longitude}\n🔗 Map: ${location.googleMapsLink}\n`;
+    }
+
+    // --- WhatsApp ---
+    const encoded = encodeURIComponent(message);
+    const whatsappNumber = "254784587728"; // 👈 your WhatsApp number here (no +, start with 254)
+    window.open(`https://wa.me/${whatsappNumber}?text=${encoded}`, "_blank");
+
+    // --- Email ---
+    await fetch("/api/sendEmail", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        subject: "New Order from Bohemian Integrations 🌿",
+        message,
+        to: billing.email || "bohemianintegrations@gmail.com" // fallback email
+      }),
+    });
+
+    console.log("✅ Order summary sent successfully!");
+  } catch (err) {
+    console.error("❌ Failed to send order summary:", err);
+  }
+}
+    //end
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -947,6 +1001,10 @@ document.getElementById("procedPaymentBtn").addEventListener("click", async () =
                 })();
               }
             });
+
+              // 🟢 Send order info to WhatsApp + Email
+sendOrderSummary();
+
           }
         } catch (e) {
           console.warn("Payment status check failed", e);
@@ -1152,6 +1210,7 @@ function saveLocation(lat, lng) {
 
 
 </html>
+
 
 
 
