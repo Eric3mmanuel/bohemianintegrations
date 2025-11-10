@@ -259,6 +259,7 @@
   </button>
 </div>
 
+
                             <!--<div class="form-item">
                                 <label class="form-label my-3">Country<sup>*</sup></label>
                                 <input type="text" class="form-control">
@@ -1082,7 +1083,8 @@ document.getElementById("mpesaExpressBtn").addEventListener("click", async () =>
 </script>
 
 
-    <script>
+   <script>
+       //leaflet map
 let map, marker;
 
 document.getElementById("select-location").addEventListener("click", () => {
@@ -1095,16 +1097,19 @@ document.getElementById("select-location").addEventListener("click", () => {
         document.getElementById("map-container").style.display = "block";
 
         if (!map) {
+          // 🗺️ Initialize Map
           map = L.map('map').setView([lat, lng], 15);
           L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
           }).addTo(map);
 
+          // 📍 Add Draggable Marker
           marker = L.marker([lat, lng], { draggable: true }).addTo(map);
 
           saveLocation(lat, lng);
 
-          marker.on('dragend', function (e) {
+          // 🎯 Update location when marker is moved
+          marker.on('dragend', function () {
             const newPos = marker.getLatLng();
             saveLocation(newPos.lat, newPos.lng);
           });
@@ -1114,10 +1119,10 @@ document.getElementById("select-location").addEventListener("click", () => {
           saveLocation(lat, lng);
         }
       },
-      (err) => alert("⚠️ Please enable location access.")
+      (err) => alert("⚠️ Please enable location access to use this feature.")
     );
   } else {
-    alert("❌ Geolocation not supported.");
+    alert("❌ Geolocation not supported by this browser.");
   }
 });
 
@@ -1126,14 +1131,14 @@ document.getElementById("confirm-location").addEventListener("click", () => {
 });
 
 function saveLocation(lat, lng) {
-  const googleMapsLink = `https://www.google.com/maps?q=${lat},${lng}`;
+  const mapLink = `https://www.google.com/maps?q=${lat},${lng}`;
   localStorage.setItem("userLocation", JSON.stringify({
     latitude: lat,
     longitude: lng,
-    googleMapsLink
+    googleMapsLink: mapLink
   }));
   document.getElementById("location-display").innerHTML = 
-    `✅ Location pinned! <a href="${googleMapsLink}" target="_blank">View on Map</a>`;
+    `✅ Location pinned! <a href="${mapLink}" target="_blank">View on Map</a>`;
 }
 </script>
 
@@ -1147,6 +1152,7 @@ function saveLocation(lat, lng) {
 
 
 </html>
+
 
 
 
