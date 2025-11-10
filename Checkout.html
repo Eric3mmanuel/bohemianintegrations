@@ -61,6 +61,8 @@
     </style>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
+
 </head>
 
 <body>
@@ -236,6 +238,22 @@
                                 <label class="form-label my-3">Region <sup>*</sup></label>
                                 <input type="text" class="form-control" placeholder="e.g Kikuyu, Ngong, Karen">
                             </div>
+                            <!-- 📍 Exact Location Selector -->
+<div class="form-item my-3">
+  <button id="select-location" type="button" class="btn border-secondary text-primary w-100">
+    📍 Select Your Exact Location
+  </button>
+  <p id="location-display" class="mt-2 text-success small"></p>
+</div>
+
+<!-- 🗺️ Map Container -->
+<div id="map-container" style="display:none; height:300px; border-radius:12px; overflow:hidden; margin-top:10px;">
+  <div id="map" style="width:100%; height:100%;"></div>
+  <button id="confirm-location" type="button" class="btn btn-success w-100 mt-3">
+    ✅ Confirm Location
+  </button>
+</div>
+
                             <!--<div class="form-item">
                                 <label class="form-label my-3">Country<sup>*</sup></label>
                                 <input type="text" class="form-control">
@@ -1059,6 +1077,82 @@ document.getElementById("mpesaExpressBtn").addEventListener("click", async () =>
 </script>
 
 
+    <script>
+        //Geolocation script
+let map, marker, selectedLat, selectedLng;
+
+document.getElementById("select-location").addEventListener("click", () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const lat = position.coords.latitude;
+        const lng = position.coords.longitude;
+        showMap(lat, lng);
+      },
+      (error) => {
+        alert("⚠️ Please enable GPS to select your location.");
+        console.error(error);
+      }
+    );
+  } else {
+    alert("❌ Geolocation is not supported by this browser.");
+  }
+});
+
+function showMap(lat, lng) {
+  const mapContainer = document.getElementById("map-container");
+  mapContainer.style.display = "block";
+  mapContainer.classList.add("show");
+
+  if (!map) {
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat, lng },
+      zoom: 15,
+      disableDefaultUI: true,
+    });
+
+    marker = new google.maps.Marker({
+      position: { lat, lng },
+      map: map,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+    });
+
+    marker.addListener("dragend", () => {
+      const pos = marker.getPosition();
+      selectedLat = pos.lat();
+      selectedLng = pos.lng();
+    });
+
+    selectedLat = lat;
+    selectedLng = lng;
+  } else {
+    map.setCenter({ lat, lng });
+    marker.setPosition({ lat, lng });
+  }
+}
+
+document.getElementById("confirm-location").addEventListener("click", () => {
+  if (selectedLat && selectedLng) {
+    const link = `https://www.google.com/maps?q=${selectedLat},${selectedLng}`;
+    localStorage.setItem("userLocation", JSON.stringify({
+      latitude: selectedLat,
+      longitude: selectedLng,
+      googleMapsLink: link
+    }));
+
+    document.getElementById("location-display").innerHTML = 
+      `✅ Location pinned! <a href="${link}" target="_blank">View on Google Maps</a>`;
+    
+    document.getElementById("map-container").style.display = "none";
+  } else {
+    alert("Please select your location first.");
+  }
+});
+</script>
+
+
+
 
 
 
@@ -1066,6 +1160,7 @@ document.getElementById("mpesaExpressBtn").addEventListener("click", async () =>
 
 
 </html>
+
 
 
 
