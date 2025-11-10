@@ -1131,3 +1131,26 @@ input[type=number] {
 body {
   padding-top: 90px; /* adjust depending on navbar height */
 }
+
+/*google maps*/
+#map-container {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  transition: all 0.5s ease;
+  border: 2px solid #c1a265;
+}
+
+#confirm-location {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+#confirm-location:hover {
+  background-color: #3e8e41;
+  transform: scale(1.02);
+}
+
+
