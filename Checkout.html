@@ -725,6 +725,14 @@ document.getElementById("place-order").addEventListener("click", async () => {
     let orderText = `🌿 New Order from Bohemian Integrations Website\n\n`;
     orderText += `👤 Name: ${name}\n📧 Email: ${email}\n📞 Phone: ${phone}\n🏠 Address: ${address}\n\n🛍️ Items Ordered:\n`;
 
+    // 🌍 Include user’s location if available
+const locationData = JSON.parse(localStorage.getItem("userLocation")) || {};
+if (locationData.latitude && locationData.longitude) {
+    orderText += `📍 Location: ${locationData.latitude}, ${locationData.longitude}\n🔗 Google Maps: ${locationData.googleMapsLink}\n\n`;
+} else {
+    orderText += `📍 Location: Not shared\n\n`;
+}
+
     let subtotal = 0;
     cart.forEach(item => {
         const itemTotal = item.price * item.quantity;
@@ -1156,6 +1164,7 @@ function saveLocation(lat, lng) {
 
 
 </html>
+
 
 
 
