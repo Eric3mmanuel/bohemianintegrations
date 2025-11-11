@@ -1,0 +1,1 @@
+import{ae as e,af as t}from"./index-Bn5F3YQ6.js";function d(s,r){if(!e(s,{strict:!1}))throw new t({address:s});if(!e(r,{strict:!1}))throw new t({address:r});return s.toLowerCase()===r.toLowerCase()}export{d as i};
