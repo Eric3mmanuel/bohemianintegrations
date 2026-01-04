@@ -1162,5 +1162,8 @@ iframe[src*="chatbase"] {
   right: 16px !important;
   bottom: 40px !important;
 }
-
+#tidio-chat,
+.tidio-chat {
+  display: none !important;
+}
 
