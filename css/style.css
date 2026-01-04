@@ -1160,7 +1160,7 @@ html, body {
 }
 iframe[src*="chatbase"] {
   right: 16px !important;
-  bottom: 16px !important;
+  bottom: 20px !important;
 }
 
 
